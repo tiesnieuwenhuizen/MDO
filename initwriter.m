@@ -3,23 +3,23 @@
 
 function init = initwriter(Wing)
 
-fid = fopen("test.init", wt);
-fprintf(fid, '%g %g/n', Wing.MTOW, Wing.MZF);
-fprintf(fid, '%g/n', Wing.n_max);
-fprintf(fid, '%g %g %g %g/n', Wing.Planform.S, Wing.Planform.b/2, Wing.Planform.n_sec, Wing.airfoils.n);
+fid = fopen("test.init", 'wt');
+fprintf(fid, '%g %g\n', Wing.MTOW, Wing.MZF);
+fprintf(fid, '%g\n', Wing.n_max);
+fprintf(fid, '%g %g %g %g\n', Wing.Planform.S, Wing.Planform.b/2, Wing.Planform.n_sec, Wing.Airfoils.n);
 for i = 1:Wing.Airfoils.n
-    fprintf(fid, '%g %g/n', Wing.Airfoils.loc(i), Wing.Airfoils.names(i));
+    fprintf(fid, '%g %s\n', Wing.Airfoils.loc(i), Wing.Airfoils.names(i));
 end
 for i = 1:Wing.Planform.n_sec
-    fprintf(fid, '%g %g %g %g %g %g/n', Wing.Planform.chord(i), Wing.Planform.x(i), Wing.Planform.y(i), Wing.Planform.z(i), Wing.Planform.fspar_loc(i), Wing.Planform.rspar_loc(i));
+    fprintf(fid, '%g %g %g %g %g %g\n', Wing.Planform.chord(i), Wing.Planform.x(i), Wing.Planform.y(i), Wing.Planform.z(i), Wing.Planform.fspar_loc(i), Wing.Planform.rspar_loc(i));
 end
-fprintf(fid, '%g %g/n', Wing.Planform.ftank_start, Wing.Planform.ftank_end);
-fprintf(fid, '%g /n', Wing.Engines.n/2);
+fprintf(fid, '%g %g\n', Wing.Planform.ftank_start, Wing.Planform.ftank_end);
+fprintf(fid, '%g \n', Wing.Engines.n/2);
 for i = 1:Wing.Engines.n/2
-    fprintf(fid, '%g %g/n', Wing.Engines.loc(i), Wing.Engines.w(i));
+    fprintf(fid, '%g %g\n', Wing.Engines.loc(i), Wing.Engines.w(i));
 end
 for i = 1:4
-    fprintf(fid, '%g %g %g %g/n', Wing.Material.ymodulus(i), Wing.Material.density(i), Wing.Material.ystress_t(i), Wing.Material.ystress_c(i));
+    fprintf(fid, '%g %g %g %g\n', Wing.Material.ymodulus(i), Wing.Material.density(i), Wing.Material.ystress_t(i), Wing.Material.ystress_c(i));
 end
-fprintf(fid, '%g %g/n', Wing.Structure.panelfact, Wing.Structure.rib_pitch);
-fprintf(fid, '%g/n', Wing.displayoption);
+fprintf(fid, '%g %g\n', Wing.Structure.panelfact, Wing.Structure.rib_pitch);
+fprintf(fid, '%g', Wing.displayoption);
