@@ -1,6 +1,6 @@
 function wing=wingparameters(x)
 Lambda_TE=0;  %%%%%%%%%%%%%%%%still hardcoded parameters-->change when used
-Lambda_LE=0;
+Lambda_LE=0.3;
 b_i=5;
 lambda_o=1;
 b=20;

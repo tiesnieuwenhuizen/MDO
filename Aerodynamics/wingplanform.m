@@ -1,4 +1,4 @@
-function wingplan=wingplanform
+function [wingplan]=wingplanform()
 
 wingcomputer=@wingparameters;
 x0=[0,0,0,0,0,0];
