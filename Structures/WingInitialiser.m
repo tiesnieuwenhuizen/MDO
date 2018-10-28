@@ -19,16 +19,6 @@ Wing.Engines.n = 4; % Total amount of engines!!!
 Wing.Engines.loc = [0.315 0.5];
 Wing.Engines.w = [628 628];
 
-% Material Data (use matrices for info on all 4 panels)
-Wing.Material.ymodulus = [7.1e10 7.1e10 7.1e10 7.1e10];
-Wing.Material.density = [2800 2800 2800 2800];
-Wing.Material.ystress_t = [4.8e8 4.8e8 4.8e8 4.8e8];
-Wing.Material.ystress_c = [4.6e8 4.6e8 4.6e8 4.6e8];
-
-% Structure Data
-Wing.Structure.panelfact = 0.96; % Z-type stringers
-Wing.Structure.rib_pitch = 0.5;
-
 % Airfoil Data
 Wing.Airfoils.names = ["e553" "e553"];  % RJ115 uses 15.3% thickness at root and 12.2% thickness at tip
 Wing.Airfoils.loc = [0 1];
