@@ -7,6 +7,7 @@ Use this file to edit process flow
 ConstCreator
 
 % Create Initial Design Vector
+
 % Vector
 % 1  S
 % 2  b
@@ -49,8 +50,6 @@ ConstCreator
 % 39 CST_L_5_c
 % 40 SF_L_c
 % 41 N2_c
-
-
 
 
 
