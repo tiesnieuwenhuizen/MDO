@@ -61,4 +61,14 @@ x.add_output('S', r'MTOW^{*}', side='left')
 x.add_output('P', r'W_{f}^{*}', side='left')
 #x.add_output('F', r'f^*', side='left')
 #x.add_output('G', r'g^*', side='left')
+
+
+x.add_process(['opt','A','C','opt'])
+x.add_process(['opt','L','C','opt'])
+x.add_process(['opt','S','C','opt'])
+x.add_process(['opt','S','I','opt'])
+x.add_process(['opt','P','C','opt'])
+x.add_process(['opt','P','I','opt'])
+x.add_process(['opt','P','O','opt'])
+
 x.write('mdf4')
