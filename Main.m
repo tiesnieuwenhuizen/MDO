@@ -7,6 +7,7 @@ Use this file to edit process flow
 ConstCreator
 
 % Create Initial Design Vector
+InitialVector
 
 % Set up optimiser
 
