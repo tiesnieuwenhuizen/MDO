@@ -19,7 +19,7 @@ for i = 1:Wing.Engines.n/2
     fprintf(fid, '%g %g\n', Wing.Engines.loc(i), Wing.Engines.w(i));
 end
 for i = 1:4
-    fprintf(fid, '%g %g %g %g\n', Wing.Material.ymodulus(i), Wing.Material.density(i), Wing.Material.ystress_t(i), Wing.Material.ystress_c(i));
+    fprintf(fid, '%g %g %g %g\n', Const.Material.ymodulus, Const.Material.density, Const.Material.ystress_t, Const.Material.ystress_c);
 end
-fprintf(fid, '%g %g\n', Wing.Structure.panelfact, Wing.Structure.rib_pitch);
+fprintf(fid, '%g %g\n', Const.Structure.panelfact, Const.Structure.rib_pitch);
 fprintf(fid, '%g', Wing.displayoption);
