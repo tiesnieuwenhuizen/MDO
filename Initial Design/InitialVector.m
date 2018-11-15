@@ -48,7 +48,7 @@ x0(34) = LD_0;
 x0 = [x0, CST_L_0, SF_L, N2_0];
 
 % Structure calculations
-W_w_0 = Structures(x0);
+W_w_0 = StructuresInit(x0);
 x0(32) = W_w_0;
 
 % A-W group contributions

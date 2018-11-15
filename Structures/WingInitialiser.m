@@ -3,11 +3,6 @@ This file is used at the start of the optimisation to create the "Wing"
 object with default values
 %}
 
-
-clear all
-close all
-clc
-
 % General Data
 Wing.MTOW = 46040;
 Wing.MZF = 37421;
