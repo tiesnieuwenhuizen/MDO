@@ -7,8 +7,10 @@ vector
 
 S0 = 77.3; % m^2, total area
 b0 = 26.21; % m, total span
+Lambda_i_0 = 15; % deg, INCORRECT, CHANGE TO LE SWEEP
+Lambda_o_0 = 15; % deg, INCORRECT, CHANGE TO LE SWEEP
 lambda_i_0 = 0.356; % -
-lambda_o_0 = lambda_i_0; % -
+% lambda_o_0 = lambda_i_0; % -
 phi_i_0 = 0; % deg, ASSUMED, NO INFO
 phi_o_0 = 0; % deg, ASSUMED, NO INFO
 W_f_0 = 8955; % kg
@@ -35,7 +37,7 @@ CST_r_0 = (tc_r_0/tc_withcomb).*CST_0;
 CST_t_0 = (tc_t_0/tc_withcomb).*CST_0;
 
 % Initialise design vector
-x0 = [S0, b0, lambda_i_0, lambda_o_0, 0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0];
+x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0];
 
 % Aerodynamics calculation
 LD_0 = Aerodynamics(x0);
