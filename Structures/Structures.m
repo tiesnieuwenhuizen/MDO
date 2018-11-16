@@ -9,11 +9,12 @@ global Const;
 %% Convert design vector into useful values for EMWET
 MTOW = x(32) + x(33) + Const.AWGroup.weight;
 MZF = x(32) + Const.AWGroup.weight;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INSERT CALCULATIONS %%%%%%%%%%%%%%%%%%%%%%%
-chords = []; % [Root chord, kink chord, tip chord]
-x_loc = []; % [x_LE_r, x_LE_k, x_LE_t]
-y_loc = []; % [y_LE_r, y_LE_k, y_LE_t]
-z_loc = []; % [z_LE_r, z_LE_k, z_LE_t]
+% Run wingplanform code for chords and locations
+wing = wingplanform(x);
+chords = wing(4:6); % [Root chord, kink chord, tip chord]
+x_loc = [0, b_i*tan(x(3)), b_i*tan(x(3))+wing(3)*tan(x(4));]; % [x_LE_r, x_LE_k, x_LE_t]
+y_loc = [0, Const.Wing.y_k, x(2)/2]; % [y_LE_r, y_LE_k, y_LE_t]
+z_loc = [0, 0, 0]; % [z_LE_r, z_LE_k, z_LE_t]
 
 % Write airfoil data files
 nx = 20; % Number of x-locations for coordinate files

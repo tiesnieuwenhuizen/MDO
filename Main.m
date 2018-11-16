@@ -7,6 +7,7 @@ Use this file to edit process flow
 ConstCreator
 
 % Create Initial Design Vector
+InitialVector
 
 % Vector
 % 1  S
@@ -68,11 +69,12 @@ global ub_0;
 lb_0 = [S_i_min, Const.Wing.y_k*2, 0, 0, 0.85*CST, -5, 0, 0, -10, -10, -10, -10, -10, 0, 0, 0]; % To be updated: CST, S_i_min, y_kink
 ub_0 = [2*S_0, 36, 45, 1, 1.15*CST, 5, 1.5*MTOW_0, W_f_0, 10, 10, 10, 10, 10, 3*SF_0, 1, 30]; % To be updated: S_0, CST, MTOW_0, W_f_0 CST, SF_0
     
-% Normalise bounds
+% Normalise initial vector
 x_0n = (x_0-lb_0)./ub_0;
 
-%reverse x_0 = ub_0.*x_0n+lb_0
+% Reverse normalisation: x_0 = ub_0.*x_0n+lb_0
 
+% Normalised bounds
 lb = zeros(48,1);
 ub = ones(48,1);
 
@@ -90,5 +92,5 @@ options.TolFun          = 1e-6;         % Maximum difference between two subsequ
 options.TolX            = 1e-6;         % Maximum difference between two subsequent design vectors
 
 tic;
-[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@(x) Obj(x),x0,[],[],[],[],lb,ub,@(x) constraints(x),options);
+[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0,[],[],[],[],lb,ub,@(x) constraints(x),options);
 toc;
