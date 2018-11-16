@@ -37,7 +37,7 @@ function [out]=Aerodynamics(x_n)
 %% Aerodynamic solver setting
 x = ub_0.*x_n+lb_0;
 
-wing=wingplanform(x,Const);
+wing=wingplanform(x);
 b_i=Const.Wing.y_k;
 b=x(2)/2;
 Lambda_i=x(3);
@@ -75,7 +75,7 @@ AC.Visc  =1;              % 0 for inviscid and 1 for viscous analysis
 AC.Aero.V     = Const.Cruise.V;            % flight speed (m/s)
 AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
 AC.Aero.alt   = Const.cruise.h;             % flight altitude (m)
-AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (bqased on mean aerodynamic chord)
+AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
 AC.Aero.M     = Const.cruise.M;           % flight Mach number 
 AC.Aero.CL    = W_tot/(0.5*Const.Wing.rho*Const.Wing.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
 %AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 
