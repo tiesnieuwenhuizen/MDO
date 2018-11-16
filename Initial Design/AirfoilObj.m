@@ -8,7 +8,7 @@ function [err] = AirfoilObj(x)
  CST_l = x(length(x)/2+1:length(x));
  
  % Read coordinate file
- fid = fopen('withcomb135.dat','r');
+ fid = fopen('e553.dat','r');
  coord = fscanf(fid,'%g %g',[2 Inf]); 
  fclose(fid);
  

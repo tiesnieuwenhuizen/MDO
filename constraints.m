@@ -1,16 +1,27 @@
 function [c,ceq] = constraints(x)
-%function computing constraints of the sellar problem
-global couplings;
-W_f       = couplings.Performance;
-W_w       = couplings.Structures;
-CST_L_1   = couplings.Loads(1);
-CST_L_2   = couplings.Loads(2);
-CST_L_3   = couplings.Loads(3);
-CST_L_4   = couplings.Loads(4);
-CST_L_5   = couplings.Loads(5);
-SF_L      = couplings.Loads(6);
-N2_L      = couplings.Loads(7);
-LD        = couplings.Aerodynamics;
+%CONSTRAINTS This function executes all of the blocks and compares their
+%outcomes to the "copy" variables in the design vector to obtain
+%constraints
+%   Inputs: Design vector (non-normalised!!!)
+%   Output: Constraint errors
+
+% Run performance block
+W_f = Performance(x);
+
+% Run Structures block
+cd Structures
+W_w = Structures(x);
+cd ../
+
+% Run Loads block
+cd Loads
+[CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, SF_L, N2_L] = Loads(x);
+cd ../
+
+% Run Aerodynamics block
+cd Aerodynamics
+LD = Aerodynamics(x);
+cd ../
 
 %Consistency Constraints
 W_f_c       = x(33);
@@ -43,7 +54,9 @@ S      = x(1);
 b      = x(2);
 
 
-
+    function [y1] = f1(x1)
+        
+    end
 
 S_1 =
 S_2 =

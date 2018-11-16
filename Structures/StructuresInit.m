@@ -9,10 +9,12 @@ global Const;
 %% Convert design vector into useful values for EMWET
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INSERT CALCULATIONS %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% CURRENT VALUES FOR 737 %%%%%%%%%%%%%%%%%%%%%%
-chords = [7.38 4.02 1.51]; % [Root chord, kink chord, tip chord]
-x_loc = [12.9 16.25 21.29]; % [x_LE_r, x_LE_k, x_LE_t]
-y_loc = [0 4.7 14.175]; % [y_LE_r, y_LE_k, y_LE_t]
-z_loc = [5 5.84 6.67]; % [z_LE_r, z_LE_k, z_LE_t]
+% Run wingplanform code for chords and locations
+wing = wingplanform(x);
+chords = wing(4:6); % [Root chord, kink chord, tip chord]
+x_loc = [0, b_i*tan(x(3)), b_i*tan(x(3))+wing(3)*tan(x(4));]; % [x_LE_r, x_LE_k, x_LE_t]
+y_loc = [0, Const.Wing.y_k, x(2)/2]; % [y_LE_r, y_LE_k, y_LE_t]
+z_loc = [0, 0, 0]; % [z_LE_r, z_LE_k, z_LE_t]
 
 % Write airfoil data files
 nx = 20; % Number of x-locations for coordinate files
@@ -67,8 +69,8 @@ EMWET wing
 %% Read data from file
 
 res = fopen("wing.weight", 'r'); % Open weight file for reading
-data = textscan(res, '%s %f') % Read first float and assign to W_w
-W_w = data{2};
+data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
+W_w = data{4};
 
 end
 

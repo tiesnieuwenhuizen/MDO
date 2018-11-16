@@ -2,6 +2,8 @@
 This file creates an object containing all the constant values
 %}
 
+global Const
+
 % Material Data
 Const.Material.ymodulus = 7.0e10; % Young's Modulus, [Pa]
 Const.Material.density = 2800; % Density, [kg/m^3]
@@ -13,7 +15,7 @@ Const.Structure.panelfact = 0.96; % Panel factor for Z-type stringers
 Const.Structure.rib_pitch = 0.5; % Rib pitch [m]
 Const.Structure.loc_fspar = 0.2; % Front spar location [-]
 Const.Structure.loc_rspar = 0.8; % Rear spar location [-]
-Const.Structure.displayoption = 1; % EMWET display option
+Const.Structure.displayoption = 0; % EMWET display option
 
 % Aircraft Data
 Const.AC.Range  = 1794*1852; % Design range, [nm] to [m]
@@ -34,8 +36,8 @@ Const.Cruise.h = 29000*0.3048; % Cruise altitude, [ft] to [m]
 Const.Cruise.rho = 0.475448; % Density at cruise altitude, [Pa]
 Const.Cruise.a = 304.484; % Speed of sound at cruise (from ISA), [m/s]nm 
 Const.Cruise.M = Const.Cruise.V/Const.Cruise.a; % Cruise Mach number
-Const.Cruise.mu = 1.5106696E-5 %Cruise Viscosity [kg/ms]
-Const.Cruise.T = 230.695 % Cruise Temperature [T]
+Const.Cruise.mu = 1.5106696E-5; %Cruise Viscosity [kg/ms]
+Const.Cruise.T = 230.695; % Cruise Temperature [T]
 % Const.Cruise.Re = Const.Cruise.rho*
 Const.Cruise.VMO=0.73*sqrt(1.4*287.1*Const.Cruise.T)
 
@@ -51,7 +53,5 @@ Const.Wing.y_k = 0.4*26.21*0.5; % y-position of the kink [m]
 Const.Wing.n_sec = 2; % Number of trapezoids the wing constists of [-]
 Const.Wing.n_airfoils = 2; % Number of airfoils used (1 for root, 1 for tip) [-]
 Const.Wing.incidence = 3.1; % Incidence angle at root
-
-global Const
 
 

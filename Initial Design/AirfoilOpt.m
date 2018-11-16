@@ -7,7 +7,7 @@ x0 = 0.5*ones(n_CST,1); % Initial value of CST coefficients
 lb = -1*ones(n_CST,1); % Lower bounds
 ub = ones(n_CST,1); % Upper bounds
 
-options=optimset('Display','Iter');
+options=optimset('Display','none');
 % Optimiser
 
 CST = fmincon(@AirfoilObj,x0,[],[],[],[],lb,ub,[],options);

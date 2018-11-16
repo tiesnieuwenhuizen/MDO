@@ -44,9 +44,10 @@ global Const;
 x=x_n;
 
 wing=wingplanform(x);
-b_i=Const.Wing.y_k;
-b=x(2)/2;
-Lambda_i=x(3);
+b_i=Const.Wing.y_k; % Kink y-location
+b=x(2)/2; % Semi-span
+Lambda_i=x(3); % Inner LE sweep
+Lambda_o=x(4); % Outer LE sweep
 
 
 x1=b_i*tan(Lambda_i);
@@ -81,7 +82,7 @@ AC.Visc  =1;              % 0 for inviscid and 1 for viscous analysis
 % Flight Condition
 AC.Aero.V     = Const.Cruise.V;            % flight speed (m/s)
 AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
-AC.Aero.alt   = Const.cruise.h;             % flight altitude (m)
+AC.Aero.alt   = Const.Cruise.h;             % flight altitude (m)
 AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
 AC.Aero.M     = Const.cruise.M;           % flight Mach number 
 AC.Aero.CL    = W_d/(0.5*Const.Wing.rho*Const.Wing.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
@@ -91,7 +92,7 @@ AC.Aero.CL    = W_d/(0.5*Const.Wing.rho*Const.Wing.V^2*x(1));          % lift co
 %% 
 Res = Q3D_solver(AC);
 
-CD_AW=Const.AWgroup.drag/(0.5*Const.Wing.rho*Const.Wing.V^2*x(1));
+CD_AW=Const.AWgroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
 
 out=(Res.CLwing/(Res.CDwing+CD_AW));
 
