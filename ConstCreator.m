@@ -48,7 +48,7 @@ Const.Fuel.tank_start = 0.1; % Fuel tank spanwise start [-]
 Const.Fuel.tank_end = 0.7; % Fuel tank spanwise end [-]
 
 % Wing Constants
-Const.Wing.y_k = []; % y-position of the kink [m]
+Const.Wing.y_k = 0.4*26.21*0.5; % y-position of the kink [m]
 Const.Wing.n_sec = 2; % Number of trapezoids the wing constists of [-]
 Const.Wing.n_airfoils = 2; % Number of airfoils used (1 for root, 1 for tip) [-]
 Const.Wing.incidence = 3.1; % Incidence angle at root
