@@ -49,15 +49,15 @@ InitialVector
 % 37 CST_L_3_c
 % 38 CST_L_4_c
 % 39 CST_L_5_c
-% 41 N2_L_c
-% 40 SF_L_c
+% 40 N2_L_c
+% 41 SF_L_c
 % 42 CST_M_1_c
 % 43 CST_M_2_c
 % 44 CST_M_3_c
 % 45 CST_M_4_c
 % 46 CST_M_5_c
-% 48 N2_M_c
-% 47 SF_M_c
+% 47 N2_M_c
+% 48 SF_M_c
 
 
 
@@ -67,11 +67,11 @@ InitialVector
 % Define bounds
 global lb_0;
 global ub_0;
-lb_0 = [S_i_min, Const.Wing.y_k*2, 0, 0, 0.85*CST, -5, 0, 0, -10, -10, -10, -10, -10, 0, 0, 0]; % To be updated: CST, S_i_min, y_kink
-ub_0 = [2*S_0, 36, 45, 1, 1.15*CST, 5, 1.5*MTOW_0, W_f_0, 10, 10, 10, 10, 10, 3*SF_0, 1, 30]; % To be updated: S_0, CST, MTOW_0, W_f_0 CST, SF_0
+lb_0 = [20, Const.Wing.y_k*2, 0, 0,0.2,-5,-5, 0.85*x0[8:31], 1000, 1000, 5, 0.85*x0[35:39],0,0,0.85*x0[42:46],0,0 ] 
+ub_0 = [x0*2, 36, 45, 45,1,5,5, 1.15*x0[8:31], 2*x0(32), x0(33), 1.15*x0[35:39],1, 3*x0(41), 0.85*x0[42:46],1,3*x0(47)]; 
     
 % Normalise initial vector
-x_0n = (x_0-lb_0)./ub_0;
+x0n = (x0-lb_0)./ub_0;
 
 % Reverse normalisation: x_0 = ub_0.*x_0n+lb_0
 
