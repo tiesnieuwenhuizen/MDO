@@ -67,8 +67,8 @@ EMWET wing
 %% Read data from file
 
 res = fopen("wing.weight", 'r'); % Open weight file for reading
-data = textscan(res, '%s %f') % Read first float and assign to W_w
-W_w = data{2};
+data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
+W_w = data{4};
 
 end
 

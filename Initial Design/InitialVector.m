@@ -7,7 +7,7 @@ clear all
 clc
 
 ConstCreator
-
+disp('Const object created')
 % Direct inputs to design vector
 
 S0 = 77.3; % m^2, total area
@@ -33,6 +33,8 @@ c_t_0 = 0.91; % m
 LD_ref = 16; % - , ASSUMED, NO INFO, L/D for reference aircraft
 
 % Airfoil CST curve calculations - Withcomb 135 airfoil used
+disp('Starting airfoil curvefit')
+
 tc_withcomb = 8; % %
 n_CST = 6; % Number of CST coefficients per side
 CST_0 = AirfoilOpt(2*n_CST); % 2*n_CST because both sides will be determined
@@ -41,28 +43,39 @@ CST_0 = AirfoilOpt(2*n_CST); % 2*n_CST because both sides will be determined
 CST_r_0 = (tc_r_0/tc_withcomb).*CST_0;
 CST_t_0 = (tc_t_0/tc_withcomb).*CST_0;
 
+disp('Airfoils Parameterised')
+
 % Initialise design vector
 x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0, 0, 0, 0, 0, 0, 0, 0];
 global x0;
 
+disp('Design vector initialised')
+disp('Starting Aerodynamics')
+
 % Aerodynamics calculation
-cd Aerodynamics
-LD_0 = Aerodynamics(x0);
-cd ../
+% cd Aerodynamics
+% LD_0 = Aerodynamics(x0);
+% cd ../
 x0(34) = 16; %LD_0; # DUMMY VALUE FOR UNIT TESTING
+
+disp('Finished Aerodynamics, starting Loading')
 
 % Loading calculation
 % [CST_L_0, SF_L_0, N2_0] = Loading(x0);
 % x0 = [x0, CST_L_0, SF_L, N2_0];
 
+disp('Finished loading, starting Structures')
+
 % Structure calculations
 cd Structures
-W_w_0 = StructuresInit(x0,MTOW_0,MZF_0,Const);
+W_w_0 = StructuresInit(x0,MTOW_0,MZF_0);
 x0(32) = W_w_0;
 cd ../
 
+disp('Finished Structures')
+
 % A-W group contributions
 Const.AWGroup.weight = MZF_0 - W_w_0;
-D_0 = W_des_0/LD_0; % Drag of the wing for middle of cruise
+D_0 = W_des_0/x0(34); % Drag of the wing for middle of cruise
 D_ref = W_des_0/LD_ref; % Drag of the reference aircraft in middle of cruise
 Const.AWGroup.drag = D_ref - D_0;

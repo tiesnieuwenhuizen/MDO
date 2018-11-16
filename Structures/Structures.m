@@ -1,7 +1,7 @@
 function [W_w] = Structures(x)
 %STRUCTURES This function runs the structures discipline, including pre-
 %and post-processing
-%   Inputs: Design vector (non-normalised!!!) and Const object
+%   Inputs: Design vector (non-normalised!!!)
 %   Output: Wing weight
 
 global Const;
@@ -40,7 +40,7 @@ end
 fclose(atfile);
 
 %% Write .init file for EMWET
-cd Structures
+
 fid = fopen("wing.init", 'wt');
 fprintf(fid, '%g %g\n', MTOW, MZF);
 fprintf(fid, '%g\n', Const.AC.n_max);
@@ -64,11 +64,12 @@ fprintf(fid, '%g', Const.Structure.displayoption);
 %% Execute EMWET
 
 EMWET wing
-cd ../
+
 %% Read data from file
 
 res = fopen("wing.weight", 'r'); % Open weight file for reading
-W_w = fscanf(res, '%g', 1); % Read first number and assign to W_w
+data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
+W_w = data{4};
 
 end
 
