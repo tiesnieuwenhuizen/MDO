@@ -1,14 +1,14 @@
-function wing=wingparameters(x)
+function wing=wingparameters(k)
 Lambda_TE=0;  %%%%%%%%%%%%%%%%still hardcoded parameters-->change when used
-Lambda_LE=0.3;
-b_i=5;
-lambda_o=1;
-b=20;
-S=20;
-wing(1)=b_i*(x(4)+x(5))/2-x(1);
-wing(2)=x(4)-b_i*(tan(Lambda_LE)+tan(Lambda_TE))-x(5);
-wing(3)=x(6)-lambda_o*x(5);
-wing(4)=(x(5)+x(6))/2*x(3)-x(2);
-wing(5)=b_i+x(3)-b/2;
-wing(6)=x(1)+x(2)-S/2;
+Lambda_LE=x(3);
+b_i=Const.Wing.y_k;
+lambda_o=x(5);
+b=x(2);
+S=x(1);
+wing(1)=b_i*(k(4)+k(5))/2-k(1);
+wing(2)=k(4)-b_i*(tan(Lambda_LE)+tan(Lambda_TE))-k(5);
+wing(3)=k(6)-lambda_o*k(5);
+wing(4)=(k(5)+k(6))/2*k(3)-k(2);
+wing(5)=b_i+k(3)-b/2;
+wing(6)=k(1)+k(2)-S/2;
 end

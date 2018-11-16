@@ -24,8 +24,13 @@ Const.Engines.C_T = 1.8639e-4; % Thrust specific fuel consumption, from assignme
 % Cruise Conditions
 Const.Cruise.V = 371*0.514444; % Cruise speed, [kts] to [m/s]
 Const.Cruise.h = 29000*0.3048; % Cruise altitude, [ft] to [m]
+Const.Cruise.rho = 0.475448; % Density at cruise altitude, [Pa]
 Const.Cruise.a = 304.484; % Speed of sound at cruise (from ISA), [m/s]nm 
 Const.Cruise.M = Const.Cruise.V/Const.Cruise.a; % Cruise Mach number
+Const.Cruise.mu = 1.5106696E-5 %Cruise Viscosity [kg/ms]
+Const.Cruise.T = 230.695 % Cruise Temperature [T]
+Const.Cruise.Re = Const.Cruise.rho*
+
 
 % Fuel Constants
 Const.Fuel.rho = 0.81715*10^3; % Tuel density [kg/m?]
@@ -35,4 +40,4 @@ Const.Fuel.f   = 0.93; % Tank volume discount factor [-]
 Const.Wing.y_k = ; % y-position of the kink [m]
 Const.Wing.n_sec = 2; % Number of trapezoids the wing constists of [-]
 Const.Wing.n_airfoils = 2; % Number of airfoils used (1 for root, 1 for tip) [-]
-
+Const.Wing.incidence = 3.1; % Incidence angle at root

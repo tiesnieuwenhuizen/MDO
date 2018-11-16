@@ -1,9 +1,9 @@
 function [wingplan]=wingplanform()
 
 wingcomputer=@wingparameters;
-x0=[0,0,0,0,0,0];
+k0=[0,0,0,0,0,0];
 
-wingplan=fsolve(wingcomputer,x0);
+wingplan=fsolve(wingcomputer,k0);
 
 S_inner=wingplan(1);
 S_outer=wingplan(2);
