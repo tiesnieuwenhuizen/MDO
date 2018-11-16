@@ -6,7 +6,7 @@ vector
 clear all
 clc
 
-% ConstCreator
+ConstCreator;
 % disp('Const object created')
 
 % Values for deriving design variables
@@ -14,6 +14,7 @@ MTOW_0 = 46040; % kg
 MZF_0 = 37421; % kg
 PL_des = 10925; % kg
 OEW_0 = 26160; % kg
+W_f_0 = 8955; % kg
 W_des_0 = sqrt(MTOW_0*(MTOW_0-W_f_0)); % kg, Formula from assignment, middle of cruise weight
 tc_r_0 = 15.3; % %
 tc_t_0 = 12.2; % %
@@ -27,7 +28,9 @@ S0 = 77.3; % m^2, total area
 b0 = 26.21; % m, total span
 lambda_i_0 = 0.356; % -
 Lambda_i_0 = 15-(c_r_0/(2*b0))*(lambda_i_0-1); % deg
+Lambda_i_0 = deg2rad(Lambda_i_0); % rad
 Lambda_o_0 = Lambda_i_0; % deg
+Lambda_o_0 = deg2rad(Lambda_o_0); % rad
 % lambda_o_0 = lambda_i_0; % -
 phi_i_0 = 0; % deg, ASSUMED, NO INFO
 phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
@@ -48,7 +51,7 @@ disp('Airfoils Parameterised')
 
 % Initialise design vector
 global x0;
-x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0, 0, 0, 0, 0, 0, 0, 0];
+x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 disp('Design vector initialised')
 disp('Starting Aerodynamics')
@@ -62,8 +65,10 @@ cd ../
 disp('Finished Aerodynamics, starting Loading')
 
 % Loading calculation
-% [CST_L_0, SF_L_0, N2_0] = Loading(x0);
-% x0 = [x0, CST_L_0, SF_L, N2_0];
+cd Loads
+load = LoadsInit(x0, MTOW_0);
+x0(35:48) = load;
+cd ../
 
 disp('Finished loading, starting Structures')
 
