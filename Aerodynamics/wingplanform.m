@@ -27,10 +27,10 @@ wingplan=fsolve(@wingparameters2,k0);
         wing(6)=k(1)+k(2)-S/2;
     end
 
-S_inner=wingplan(1);
-S_outer=wingplan(2);
-b_outer=wingplan(3);
-Cr=wingplan(4);
-Ci=wingplan(5);
-Ct=wingplan(6);
+%S_inner=wingplan(1);
+%S_outer=wingplan(2);
+%b_outer=wingplan(3);
+%Cr=wingplan(4);
+%Ci=wingplan(5);
+%Ct=wingplan(6);
 end 
