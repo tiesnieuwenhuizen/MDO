@@ -33,10 +33,9 @@
 % check how to find CL
 %%%%%%%%%%%
 
-function [out]=Aerodynamics(x)
+function [out]=Aerodynamics(x_n)
 %% Aerodynamic solver setting
-x=(x+x_0)*x_0
-
+x = ub_0.*x_n+lb_0
 
 wing=wingplanform;
 b_i=Const.Wing.y_k;

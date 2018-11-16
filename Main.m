@@ -50,6 +50,13 @@ ConstCreator
 % 39 CST_L_5_c
 % 40 SF_L_c
 % 41 N2_c
+% 42 CST_L_1_c
+% 43 CST_L_2_c
+% 44 CST_L_3_c
+% 45 CST_L_4_c
+% 46 CST_L_5_c
+% 47 SF_L_c
+% 48 N2_c
 
 
 
@@ -60,8 +67,12 @@ lb_0 = [S_i_min, Const.Wing.y_k*2, 0, 0, 0.85*CST, -5, 0, 0, -10, -10, -10, -10,
 ub_0 = [2*S_0, 36, 45, 1, 1.15*CST, 5, 1.5*MTOW_0, W_f_0, 10, 10, 10, 10, 10, 3*SF_0, 1, 30]; % To be updated: S_0, CST, MTOW_0, W_f_0 CST, SF_0
     
 % Normalise bounds
-lb = (lb_0-lb_0)./ub_0;
-ub = (ub_0-lb_0)./ub_0;
+x_0n = (x_0-lb_0)./ub_0;
+
+%reverse x_0 = ub_0.*x_0n+lb_0
+
+lb = zeros(48,1);
+ub = ones(48,1);
 
 
 
