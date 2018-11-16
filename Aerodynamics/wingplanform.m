@@ -2,7 +2,7 @@ function [wingplan]=wingplanform(x)
 
 global Const;
 
-Lambda_TE=0;  
+Lambda_TE=Const.Wing.Lambda_TE_i;  
 Lambda_LE=x(3);
 b_i= Const.Wing.y_k;
 lambda_o=x(5);
@@ -13,8 +13,8 @@ S=x(1);
 
 %wingcomputer=wingparameters2;
 k0=[0,0,0,0,0,0];
-
-wingplan=fsolve(@wingparameters2,k0);
+fsolveoptions=optimoptions('fsolve','Display','none');
+wingplan=fsolve(@wingparameters2,k0,fsolveoptions);
 
 
     function wing=wingparameters2(k)

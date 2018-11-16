@@ -9,6 +9,9 @@ clc
 ConstCreator;
 % disp('Const object created')
 
+
+
+
 % Values for deriving design variables
 MTOW_0 = 46040; % kg
 MZF_0 = 37421; % kg
@@ -34,7 +37,8 @@ Lambda_o_0 = deg2rad(Lambda_o_0); % rad
 % lambda_o_0 = lambda_i_0; % -
 phi_i_0 = 0; % deg, ASSUMED, NO INFO
 phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
-W_f_0 = 8955; % kg
+
+
 
 % Airfoil CST curve calculations - Withcomb 135 airfoil used
 disp('Starting airfoil curvefit')
@@ -81,7 +85,7 @@ cd ../
 disp('Finished Structures')
 
 % A-W group contributions
-Const.AWGroup.weight = MZF_0 - W_w_0;
+Const.AWGroup.weight = MTOW_0-W_w_0-W_f_0-PL_des %MZF_0 - W_w_0;
 D_0 = W_des_0/x0(34); % Drag of the wing for middle of cruise
 D_ref = W_des_0/LD_ref; % Drag of the reference aircraft in middle of cruise
 Const.AWGroup.drag = D_ref - D_0;
