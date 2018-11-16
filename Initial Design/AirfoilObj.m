@@ -33,6 +33,7 @@ function [err] = AirfoilObj(x)
  yu = coord_u(:,2);
  yl = coord_l(:,2);
  
+ 
  % Map CST curves to x-locations in .dat file
  yu_cst = cstMap(CST_u, xu);
  yl_cst = cstMap(CST_l, xl);
