@@ -42,7 +42,8 @@ CST_r_0 = (tc_r_0/tc_withcomb).*CST_0;
 CST_t_0 = (tc_t_0/tc_withcomb).*CST_0;
 
 % Initialise design vector
-x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0];
+x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0, 0, 0, 0, 0, 0, 0, 0];
+global x0;
 
 % Aerodynamics calculation
 cd Aerodynamics

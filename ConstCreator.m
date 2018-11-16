@@ -36,7 +36,7 @@ Const.Cruise.a = 304.484; % Speed of sound at cruise (from ISA), [m/s]nm
 Const.Cruise.M = Const.Cruise.V/Const.Cruise.a; % Cruise Mach number
 Const.Cruise.mu = 1.5106696E-5 %Cruise Viscosity [kg/ms]
 Const.Cruise.T = 230.695 % Cruise Temperature [T]
-Const.Cruise.Re = Const.Cruise.rho*
+% Const.Cruise.Re = Const.Cruise.rho*
 
 
 % Fuel Constants
@@ -50,5 +50,7 @@ Const.Wing.y_k = []; % y-position of the kink [m]
 Const.Wing.n_sec = 2; % Number of trapezoids the wing constists of [-]
 Const.Wing.n_airfoils = 2; % Number of airfoils used (1 for root, 1 for tip) [-]
 Const.Wing.incidence = 3.1; % Incidence angle at root
+
+global Const
 
 

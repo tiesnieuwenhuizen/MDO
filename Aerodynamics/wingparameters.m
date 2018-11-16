@@ -1,4 +1,7 @@
-function wing=wingparameters(k,x)
+function wing=wingparameters(x,k)
+
+global Const;
+
 Lambda_TE=0;  
 Lambda_LE=x(3);
 b_i=Const.Wing.y_k;

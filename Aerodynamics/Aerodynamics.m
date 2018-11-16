@@ -34,8 +34,14 @@
 %%%%%%%%%%%
 
 function [out]=Aerodynamics(x_n)
+
+global Const;
+% global ub_0;
+% global lb_0;
+
 %% Aerodynamic solver setting
-x = ub_0.*x_n+lb_0;
+% x = ub_0.*x_n+lb_0;
+x=x_n;
 
 wing=wingplanform(x);
 b_i=Const.Wing.y_k;
