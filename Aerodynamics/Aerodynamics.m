@@ -64,7 +64,6 @@ AC.Aero.CL    = input;          % lift coefficient - comment this line to run th
 
 
 %% 
-
 Res = Q3D_solver(AC);
 
 out=(Res.CLwing/Res.CDwing);
