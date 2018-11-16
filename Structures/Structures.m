@@ -62,6 +62,22 @@ end
 fprintf(fid, '%g %g\n', Const.Structure.panelfact, Const.Structure.rib_pitch);
 fprintf(fid, '%g', Const.Structure.displayoption);
 
+%% Write .load file for EMWET
+
+% Get data points from CST curves
+y = linspace(0,1,14);
+CST_L = x(35:39);
+CST_M = x(42:46);
+N2_L = x(41);
+N2_M = x(48);
+L = cstMapLoads(CST_L, N2_L, y);
+M = cstMapLoads(CST_M, N2_M, y);
+
+% Write to file
+Lfid = fopen("wing.load", 'wt');
+for i = 1:length(y)
+    fprintf(Lfid, '%g %g %g\n', y(i), L(i), M(i));
+end
 %% Execute EMWET
 
 EMWET wing
