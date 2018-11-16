@@ -1,6 +1,6 @@
-function [wingplan]=wingplanform()
+function [wingplan]=wingplanform(x,Const)
 
-wingcomputer=@wingparameters;
+wingcomputer=wingparameters(k,x,Const);
 k0=[0,0,0,0,0,0];
 
 wingplan=fsolve(wingcomputer,k0);

@@ -1,5 +1,5 @@
-function wing=wingparameters(k)
-Lambda_TE=0;  %%%%%%%%%%%%%%%%still hardcoded parameters-->change when used
+function wing=wingparameters(k,x,Const)
+Lambda_TE=0;  
 Lambda_LE=x(3);
 b_i=Const.Wing.y_k;
 lambda_o=x(5);
