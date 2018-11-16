@@ -53,6 +53,6 @@ Const.Wing.y_k = 0.4*26.21*0.5; % y-position of the kink [m]
 Const.Wing.n_sec = 2; % Number of trapezoids the wing constists of [-]
 Const.Wing.n_airfoils = 2; % Number of airfoils used (1 for root, 1 for tip) [-]
 Const.Wing.incidence = 3.1; % Incidence angle at root
-Const.Wing.S_0 = 
+
 
 
