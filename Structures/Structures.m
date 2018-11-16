@@ -1,8 +1,10 @@
-function [W_w] = Structures(x, Const)
+function [W_w] = Structures(x)
 %STRUCTURES This function runs the structures discipline, including pre-
 %and post-processing
 %   Inputs: Design vector (non-normalised!!!) and Const object
 %   Output: Wing weight
+
+global Const;
 
 %% Convert design vector into useful values for EMWET
 MTOW = x(32) + x(33) + Const.AWGroup.weight;
