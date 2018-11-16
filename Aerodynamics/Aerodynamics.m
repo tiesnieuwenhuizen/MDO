@@ -83,7 +83,6 @@ AC.Aero.CL    = W_tot/(0.5*Const.Wing.rho*Const.Wing.^2*x(1));          % lift c
 
 
 %% 
-
 Res = Q3D_solver(AC);
 
 out=(Res.CLwing/Res.CDwing);

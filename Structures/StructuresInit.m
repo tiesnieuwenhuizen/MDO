@@ -1,17 +1,16 @@
-function [W_w] = Structures(x, Const)
+function [W_w] = StructuresInit(x,MTOW,MZF,Const)
 %STRUCTURES This function runs the structures discipline, including pre-
 %and post-processing
-%   Inputs: Design vector (non-normalised!!!) and Const object
+%   Input: Design vector (non-normalised!!!)
 %   Output: Wing weight
 
 %% Convert design vector into useful values for EMWET
-MTOW = x(32) + x(33) + Const.AWGroup.weight;
-MZF = x(32) + Const.AWGroup.weight;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INSERT CALCULATIONS %%%%%%%%%%%%%%%%%%%%%%%
-chords = []; % [Root chord, kink chord, tip chord]
-x_loc = []; % [x_LE_r, x_LE_k, x_LE_t]
-y_loc = []; % [y_LE_r, y_LE_k, y_LE_t]
-z_loc = []; % [z_LE_r, z_LE_k, z_LE_t]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% CURRENT VALUES FOR 737 %%%%%%%%%%%%%%%%%%%%%%
+chords = [7.38 4.02 1.51]; % [Root chord, kink chord, tip chord]
+x_loc = [12.9 16.25 21.29]; % [x_LE_r, x_LE_k, x_LE_t]
+y_loc = [0 4.7 14.175]; % [y_LE_r, y_LE_k, y_LE_t]
+z_loc = [5 5.84 6.67]; % [z_LE_r, z_LE_k, z_LE_t]
 
 % Write airfoil data files
 nx = 20; % Number of x-locations for coordinate files
@@ -38,7 +37,7 @@ end
 fclose(atfile);
 
 %% Write .init file for EMWET
-cd Structures
+
 fid = fopen("wing.init", 'wt');
 fprintf(fid, '%g %g\n', MTOW, MZF);
 fprintf(fid, '%g\n', Const.AC.n_max);
@@ -62,11 +61,11 @@ fprintf(fid, '%g', Const.Structure.displayoption);
 %% Execute EMWET
 
 EMWET wing
-cd ../
+
 %% Read data from file
 
 res = fopen("wing.weight", 'r'); % Open weight file for reading
-W_w = fscanf(res, '%g', 1); % Read first number and assign to W_w
+W_w = fscanf(res, '%f', 1); % Read first float and assign to W_w
 
 end
 

@@ -3,6 +3,11 @@ This file uses the original aircraft data to construct the initial design
 vector
 %}
 
+clear all
+clc
+
+ConstCreator
+
 % Direct inputs to design vector
 
 S0 = 77.3; % m^2, total area
@@ -20,7 +25,7 @@ MTOW_0 = 46040; % kg
 MZF_0 = 37421; % kg
 PL_des = 10925; % kg
 OEW_0 = 26160; % kg
-W_des_0 = sqrt(MTOW*(MTOW-W_f_0)); % kg, Formula from assignment, middle of cruise weight
+W_des_0 = sqrt(MTOW_0*(MTOW_0-W_f_0)); % kg, Formula from assignment, middle of cruise weight
 tc_r_0 = 15.3; % %
 tc_t_0 = 12.2; % %
 c_r_0 = 2.75; % m
@@ -29,8 +34,8 @@ LD_ref = 16; % - , ASSUMED, NO INFO, L/D for reference aircraft
 
 % Airfoil CST curve calculations - Withcomb 135 airfoil used
 tc_withcomb = 8; % %
-n_CST = 12; % Number of CST coefficients per side
-CST_0 = AirfoilOpt(n_CST); % 2*n_CST because both sides will be determined
+n_CST = 6; % Number of CST coefficients per side
+CST_0 = AirfoilOpt(2*n_CST); % 2*n_CST because both sides will be determined
 
 % Scale airfoils for correct thickness
 CST_r_0 = (tc_r_0/tc_withcomb).*CST_0;
@@ -40,16 +45,20 @@ CST_t_0 = (tc_t_0/tc_withcomb).*CST_0;
 x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0];
 
 % Aerodynamics calculation
+cd Aerodynamics
 LD_0 = Aerodynamics(x0);
-x0(34) = LD_0;
+cd ../
+x0(34) = 16; %LD_0; # DUMMY VALUE FOR UNIT TESTING
 
 % Loading calculation
-[CST_L_0, SF_L_0, N2_0] = Loading(x0);
-x0 = [x0, CST_L_0, SF_L, N2_0];
+% [CST_L_0, SF_L_0, N2_0] = Loading(x0);
+% x0 = [x0, CST_L_0, SF_L, N2_0];
 
 % Structure calculations
-W_w_0 = StructuresInit(x0);
+cd Structures
+W_w_0 = StructuresInit(x0,MTOW_0,MZF_0,Const);
 x0(32) = W_w_0;
+cd ../
 
 % A-W group contributions
 Const.AWGroup.weight = MZF_0 - W_w_0;
