@@ -39,6 +39,7 @@ phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
 
 
 
+
 % Airfoil CST curve calculations - Withcomb 135 airfoil used
 disp('Starting airfoil curvefit')
 
