@@ -3,9 +3,9 @@ function [CST] = Loadopt(n_CST,array)
 %   This output has to be scaled to obtain proper t/c for the root and tip
 %   airfoils
 
-x0 = [[0.5*ones(n_CST,1)];[0.5]]; % Initial value of CST coefficients
-lb = [-1*ones(n_CST,1); [0]]; % Lower bounds
-ub = [ones(n_CST,1); [1]]; % Upper bounds
+x0 = [0.5*ones(n_CST,1);0.5]; % Initial value of CST coefficients
+lb = [-1*ones(n_CST,1); 0]; % Lower bounds
+ub = [ones(n_CST,1); 1]; % Upper bounds
 
 
 
@@ -20,16 +20,16 @@ options=optimset('Display','Iter');
 
 
      % Split into x and y
-     yloc = [array(:,1)];
+     yloc = array(:,1);
      yloc = yloc./yloc(end);
      
-     value = [array(:,2)];
+     value = array(:,2);
      
      
 
 
      % Map CST curves to x-locations in .dat file
-     value_cst = cstMapLoads(CST, yloc)
+     value_cst = cstMapLoads(CST, yloc);
      
 
      % Errors for upper and lower
