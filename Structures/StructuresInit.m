@@ -16,6 +16,10 @@ x_loc = [0, Const.Wing.y_k*tan(x(3)), Const.Wing.y_k*tan(x(3))+wing(3)*tan(x(4))
 y_loc = [0, Const.Wing.y_k, x(2)/2]; % [y_LE_r, y_LE_k, y_LE_t]
 z_loc = [0, 0, 0]; % [z_LE_r, z_LE_k, z_LE_t]
 
+% Plot planform
+plot(y_loc, x_loc, y_loc, x_loc+chords)
+axis equal
+
 % Write airfoil data files
 nx = 20; % Number of x-locations for coordinate files
 coor = linspace(0,1,nx); % X-locations

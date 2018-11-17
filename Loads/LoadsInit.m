@@ -110,13 +110,8 @@ array2=[y Cm_c4];
 lift=Loadopt(5, array1);
 moment=Loadopt(5, array2);
 
-testl = cstMapLoads(lift,y);
-% testm = cstMapLoads(moment,y);
-
-hold on
-plot(Res.Wing.Yst, Res.Wing.ccl);
-% plot(y, testm, y, Cm_c4);
-
+test1 = cstMapLoads(moment, linspace(0,1,14));
+plot(linspace(0,1,14),test1, y,Cm_c4)
 
 out=[lift' SF_L moment' SF_M];
 

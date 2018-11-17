@@ -15,7 +15,7 @@ Const.Structure.panelfact = 0.96; % Panel factor for Z-type stringers
 Const.Structure.rib_pitch = 0.5; % Rib pitch [m]
 Const.Structure.loc_fspar = 0.2; % Front spar location [-]
 Const.Structure.loc_rspar = 0.8; % Rear spar location [-]
-Const.Structure.displayoption = 0; % EMWET display option
+Const.Structure.displayoption = 1; % EMWET display option
 
 % Aircraft Data
 Const.AC.Range  = 1794*1852; % Design range, [nm] to [m]
