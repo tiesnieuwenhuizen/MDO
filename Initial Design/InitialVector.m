@@ -38,8 +38,6 @@ phi_i_0 = 0; % deg, ASSUMED, NO INFO
 phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
 
 
-
-
 % Airfoil CST curve calculations - Withcomb 135 airfoil used
 disp('Starting airfoil curvefit')
 
@@ -88,6 +86,5 @@ disp('Finished Structures')
 
 % A-W group contributions
 Const.AWGroup.weight = MTOW_0-W_w_0-W_f_0-PL_des; %MZF_0 - W_w_0;
-%D_0 = W_des_0/x0(34); % Drag of the wing for middle of cruise
-%D_ref = W_des_0/LD_ref; % Drag of the reference aircraft in middle of cruise
-%Const.AWGroup.drag = D_ref - D_0;
+
+%Const.AWGroup.drag - defined from AerodynamicsInit

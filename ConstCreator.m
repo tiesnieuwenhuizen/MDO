@@ -26,7 +26,6 @@ Const.AC.n_max = 2.5; % Maximum load factor, from assignment [-]
 % Engine Data
 Const.Engines.C_T = 1.8639e-4; % Thrust specific fuel consumption, from assignment [N/Ns]
 Const.Engines.n = 4; % Number of engines [-]
-%%%%%%%%%%%% UPDATE VALUES %%%%%%%%%%%%%%%%%%%%%%
 Const.Engines.loc = [5 6.79]; % Spanwise position of engines [inboard, outboard] [m]
 Const.Engines.w = [628 628]; % Engine weights [inboard, outboard] [kg]
 
