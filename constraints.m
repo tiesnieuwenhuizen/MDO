@@ -8,6 +8,7 @@ function [c,ceq] = constraints(x)
 global Const
 global lb_0
 global ub_0
+global iterationcounter
 
 % Run performance block
 W_f = Performance(x);
@@ -165,6 +166,8 @@ V_tank = (Const.Wing.y_k-0.1*b/2)/3*(S_1+S_2+sqrt(S_1*S_2))+(0.7*b/2-Const.Wing.
 
 c1 = Const.AC.WS_max-MTOW/S;
 c2 = V_tank*Const.Fuel.f - W_f/Const.Fuel.rho;
+
+iterationcounter=iterationcounter+1
 
 %Combination
 c = [c1,c2];

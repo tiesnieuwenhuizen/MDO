@@ -73,7 +73,11 @@ global lb_0;
 global ub_0;
 lb_0 = [20,      Const.Wing.y_k*2, 0,           0,           0.2, -5, -5, 0.85*x0(8:31), 1000,     1000,       5,  0.85*x0(35:39), 0, 0,        1.15*x0(42:46), 0, 0 ]; 
 ub_0 = [x0(1)*2, 36,               deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33)+0.1, 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, x0(48)]; 
-    
+
+global iterationcounter;
+iterationcounter=0
+
+
 % Normalise initial vector
 x0n = (x0-lb_0)./(ub_0-lb_0);
 
@@ -95,6 +99,7 @@ options.DiffMaxChange   = 5e-2;         % Maximum change while gradient searchin
 options.TolCon          = 1e-6;         % Maximum difference between two subsequent constraint vectors [c and ceq]
 options.TolFun          = 1e-6;         % Maximum difference between two subsequent objective value
 options.TolX            = 1e-6;         % Maximum difference between two subsequent design vectors
+options.PlotFcns = {@optimplotfval, @optimplotx, @optimplotfirstorderopt, @optimplotconstrviolation,@optimplotfirstorderopt};
 
 tic;
 [x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0n,[],[],[],[],lb,ub,@(x) constraints(x),options);
