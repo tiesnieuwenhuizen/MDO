@@ -1,42 +1,11 @@
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     Quasi-3D aerodynamic solver      
-%
-%       A. Elham, J. Mariens
-%        
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% OUTPUT DESCRIPTION:
-
-% Res.Alpha   = Wing angle of attack
-% Res.CLwing  = Total wing lift coefficient
-% Res.CDwing  = Total wing drag coefficient
-% Res.Wing.aero.Flight_cond = flight conditions including angle of attack
-%                             (alpha), sideslip angle (beta), Mach number (M), airspeed (V) and air
-%                              density (rho)
-% Res.Wing   = Spanwise distribution of aerodynamic and geometrical
-%              properties of wing 
-%              For example plot(Res.Wing,Yst,Res.Wing.cl) plots spanwise
-%              distribution of cl
-% Res.Section   = aerodynamic coefficients of 2D sections 
-
-
-%%
-
-%clear all
-%close all
-%clc
-
-
-
 
 function [out]=AerodynamicsInit(x_n, W_des_0)
 
 global Const;
-% global ub_0;
-% global lb_0;
+
 
 %% Aerodynamic solver setting
-% x = ub_0.*x_n+lb_0;
+
 x=x_n;
 
 wing=wingplanform(x);
@@ -51,7 +20,7 @@ x2=b_i*tan(Lambda_i)+wing(3)*tan(Lambda_o);
 
 lambda_tot=wing(6)/wing(4);
 MAC = 2/3*wing(4)*((1+lambda_tot+lambda_tot^2)/(1+lambda_tot));
-W_tot = W_des_0
+
 
 % Wing planform geometry 
 %                x    y     z     chord(m)    twist angle (deg) 
@@ -68,8 +37,7 @@ AC.Wing.inc  = Const.Wing.incidence;
 % Airfoil coefficients input matrix
 %                    | ->     upper curve coeff.                <-|   | ->       lower curve coeff.       <-| 
 AC.Wing.Airfoils   = [x(8)  x(9)  x(10) x(11) x(12) x(13) x(14) x(15) x(16) x(17) x(18) x(19);
-                      x(20) x(21) x(22) x(23) x(24) x(25) x(26) x(27) x(28) x(29) x(30) x(31);
-                      ];
+                      x(20) x(21) x(22) x(23) x(24) x(25) x(26) x(27) x(28) x(29) x(30) x(31)];
                   
 AC.Wing.eta = [0;1];  % Spanwise location of the airfoil sections
 
@@ -82,7 +50,7 @@ AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
 AC.Aero.alt   = Const.Cruise.h;             % flight altitude (m)
 AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
 AC.Aero.M     = Const.Cruise.M;           % flight Mach number 
-AC.Aero.CL    = W_tot/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
+AC.Aero.CL    = W_des_0/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
 %AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 
 
 

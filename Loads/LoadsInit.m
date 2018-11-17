@@ -1,46 +1,12 @@
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     Quasi-3D aerodynamic solver      
-%
-%       A. Elham, J. Mariens
-%        
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% OUTPUT DESCRIPTION:
-
-% Res.Alpha   = Wing angle of attack
-% Res.CLwing  = Total wing lift coefficient
-% Res.CDwing  = Total wing drag coefficient
-% Res.Wing.aero.Flight_cond = flight conditions including angle of attack
-%                             (alpha), sideslip angle (beta), Mach number (M), airspeed (V) and air
-%                              density (rho)
-% Res.Wing   = Spanwise distribution of aerodynamic and geometrical
-%              properties of wing 
-%              For example plot(Res.Wing,Yst,Res.Wing.cl) plots spanwise
-%              distribution of cl
-% Res.Section   = aerodynamic coefficients of 2D sections 
-
-
-%%
-
-%clear all
-%close all
-%clc
-
-
-%%%%%%%%%%%
-% check that MAC holds
-% check that x vector in wingplanform works
-% check how to find CL
-%%%%%%%%%%%
 
 function [out]=LoadsInit(x_n, MTOW)
 
 global Const;
-% global ub_0;
-% global lb_0;
+
 
 %% Aerodynamic solver setting
-% x = ub_0.*x_n+lb_0;
+
 x=x_n;
 
 wing=wingplanform(x);
@@ -68,8 +34,7 @@ AC.Wing.inc  = Const.Wing.incidence;
 % Airfoil coefficients input matrix
 %                    | ->     upper curve coeff.                <-|   | ->       lower curve coeff.       <-| 
 AC.Wing.Airfoils   = [x(8)  x(9)  x(10) x(11) x(12) x(13) x(14) x(15) x(16) x(17) x(18) x(19);
-                      x(20) x(21) x(22) x(23) x(24) x(25) x(26) x(27) x(28) x(29) x(30) x(31);
-                      ];
+                      x(20) x(21) x(22) x(23) x(24) x(25) x(26) x(27) x(28) x(29) x(30) x(31)];
                   
 AC.Wing.eta = [0;1];  % Spanwise location of the airfoil sections
 
@@ -110,12 +75,6 @@ array2=[y Cm_c4];
 lift=Loadopt(5, array1);
 moment=Loadopt(5, array2);
 
-testl = cstMapLoads(lift,y);
-% testm = cstMapLoads(moment,y);
-
-hold on
-plot(Res.Wing.Yst, Res.Wing.ccl);
-% plot(y, testm, y, Cm_c4);
 
 
 out=[lift' SF_L moment' SF_M];

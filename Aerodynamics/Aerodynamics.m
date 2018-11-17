@@ -1,47 +1,18 @@
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     Quasi-3D aerodynamic solver      
-%
-%       A. Elham, J. Mariens
-%        
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% OUTPUT DESCRIPTION:
-
-% Res.Alpha   = Wing angle of attack
-% Res.CLwing  = Total wing lift coefficient
-% Res.CDwing  = Total wing drag coefficient
-% Res.Wing.aero.Flight_cond = flight conditions including angle of attack
-%                             (alpha), sideslip angle (beta), Mach number (M), airspeed (V) and air
-%                              density (rho)
-% Res.Wing   = Spanwise distribution of aerodynamic and geometrical
-%              properties of wing 
-%              For example plot(Res.Wing,Yst,Res.Wing.cl) plots spanwise
-%              distribution of cl
-% Res.Section   = aerodynamic coefficients of 2D sections 
 
 
 %%
 
-%clear all
-%close all
-%clc
-
-
-%%%%%%%%%%%
-% check that MAC holds
-% check that x vector in wingplanform works
-% check how to find CL
-%%%%%%%%%%%
 
 function [out]=Aerodynamics(x_n)
 
 global Const;
-% global ub_0;
-% global lb_0;
+global ub_0;
+global lb_0;
 
 %% Aerodynamic solver setting
-% x = ub_0.*x_n+lb_0;
-x=x_n;
+x = (ub_0-lb_0).*x_n+lb_0;
+
 
 wing=wingplanform(x);
 b_i=Const.Wing.y_k; % Kink y-location
@@ -71,8 +42,7 @@ AC.Wing.inc  = Const.Wing.incidence;
 % Airfoil coefficients input matrix
 %                    | ->     upper curve coeff.                <-|   | ->       lower curve coeff.       <-| 
 AC.Wing.Airfoils   = [x(8)  x(9)  x(10) x(11) x(12) x(13) x(14) x(15) x(16) x(17) x(18) x(19);
-                      x(20) x(21) x(22) x(23) x(24) x(25) x(26) x(27) x(28) x(29) x(30) x(31);
-                      ];
+                      x(20) x(21) x(22) x(23) x(24) x(25) x(26) x(27) x(28) x(29) x(30) x(31)];
                   
 AC.Wing.eta = [0;1];  % Spanwise location of the airfoil sections
 
@@ -94,7 +64,7 @@ Res = Q3D_solver(AC);
 
 CD_AW=Const.AWgroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
 
-out=(Res.CLwing/(Res.CDwing+CD_AW));
+out=((Res.CLwing/(Res.CDwing+CD_AW))-lb_0(34))/(ub_0(34)-lb_0(34));
 
 end
 
