@@ -103,11 +103,14 @@ ccl=ccl_temp/SF_L;
 SF_M=max(Cm_c4_temp);
 Cm_c4=Cm_c4_temp/SF_M;
 
-array1=[y ccl];
-array2=[y Cm_c4];
+chords = Res.Wing.chord;
+ccm_c4 = Cm_c4.*chords;
 
-lift=Loadopt(5 , array1);
-moment=Loadopt(5,array2);
+array1=[y ccl];
+array2=[y ccm_c4];
+
+lift=Loadopt(5, array1);
+moment=Loadopt(5, array2);
 
 
 

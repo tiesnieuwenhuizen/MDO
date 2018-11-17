@@ -27,8 +27,8 @@ Const.AC.n_max = 2.5; % Maximum load factor, from assignment [-]
 Const.Engines.C_T = 1.8639e-4; % Thrust specific fuel consumption, from assignment [N/Ns]
 Const.Engines.n = 4; % Number of engines [-]
 %%%%%%%%%%%% UPDATE VALUES %%%%%%%%%%%%%%%%%%%%%%
-Const.Engines.loc = [0.35 0.5]; % Spanwise position of engines [inboard, outboard] [-]
-Const.Engines.w = [1969 1969]; % Engine weights [inboard, outboard] [kg]
+Const.Engines.loc = [5 6.79]; % Spanwise position of engines [inboard, outboard] [m]
+Const.Engines.w = [628 628]; % Engine weights [inboard, outboard] [kg]
 
 % Cruise Conditions
 Const.Cruise.V = 371*0.514444; % Cruise speed, [kts] to [m/s]
@@ -53,6 +53,5 @@ Const.Wing.y_k = 0.4*26.21*0.5; % y-position of the kink [m]
 Const.Wing.n_sec = 2; % Number of trapezoids the wing constists of [-]
 Const.Wing.n_airfoils = 2; % Number of airfoils used (1 for root, 1 for tip) [-]
 Const.Wing.incidence = 3.1; % Incidence angle at root
-% Const.Wing.S_0 = 
-
+Const.Wing.Lambda_TE_i = 6.1; % Inboard TE sweep [deg]
 

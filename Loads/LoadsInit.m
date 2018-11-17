@@ -102,13 +102,18 @@ ccl=ccl_temp/SF_L;
 SF_M=max(Cm_c4_temp);
 Cm_c4=Cm_c4_temp/SF_M;
 
+chords = Res.Wing.chord;
+ccm_c4 = Cm_c4.*chords;
+
 array1=[y ccl];
-array2=[y Cm_c4];
+array2=[y ccm_c4]
+plot(array2)
 
-lift=Loadopt(5 , array1);
-moment=Loadopt(5,array2);
+lift=Loadopt(5, array1);
+moment=Loadopt(5, array2);
 
-
+test = cstMapLoads(lift, array2(:,1));
+plot(array2(:,1), test)
 
 
 out=[lift' SF_L moment' SF_M];

@@ -9,7 +9,7 @@ ub = [ones(n_CST,1); [1]]; % Upper bounds
 
 
 
-options=optimset('Display','Iter');
+options=optimset('Display','none');
 % Optimiser
 
 
@@ -29,7 +29,7 @@ options=optimset('Display','Iter');
 
 
      % Map CST curves to x-locations in .dat file
-     value_cst = cstMapLoads(CST, yloc)
+     value_cst = cstMapLoads(CST, yloc);
      
 
      % Errors for upper and lower
