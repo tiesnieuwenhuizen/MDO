@@ -19,7 +19,7 @@ cd ../
 
 % Run Loads block
 cd Loads
-loadcoefficients = Loads(x)
+loadcoefficients = Loads(x);
 cd ../
 
 % Run Aerodynamics block
