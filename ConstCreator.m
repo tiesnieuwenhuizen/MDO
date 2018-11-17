@@ -19,7 +19,7 @@ Const.Structure.displayoption = 1; % EMWET display option
 
 % Aircraft Data
 Const.AC.Range  = 1794*1852; % Design range, [nm] to [m]
-Const.AC.WS_max = []; % maximum permissible wing loading [N/m]
+Const.AC.WS_max = 46040*9.81/77.3; % maximum permissible wing loading [N/m?]
 % Const.AC.W_fuse = ; % Weight of the fuselage [N] -> ALREADY DEFINED IN InitialVector.m
 Const.AC.n_max = 2.5; % Maximum load factor, from assignment [-]
 
@@ -38,7 +38,6 @@ Const.Cruise.a = 304.484; % Speed of sound at cruise (from ISA), [m/s]nm
 Const.Cruise.M = Const.Cruise.V/Const.Cruise.a; % Cruise Mach number
 Const.Cruise.mu = 1.5106696E-5; %Cruise Viscosity [kg/ms]
 Const.Cruise.T = 230.695; % Cruise Temperature [T]
-% Const.Cruise.Re = Const.Cruise.rho*
 Const.Cruise.VMO=0.73*sqrt(1.4*287.1*Const.Cruise.T);
 
 
