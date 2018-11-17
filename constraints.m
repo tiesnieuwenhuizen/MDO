@@ -9,21 +9,37 @@ global Const
 global lb_0
 global ub_0
 
+% Parallel stuff
+w = getCurrentWorker
+if isobject(w)
+    id = w.ProcessId
+else
+    id = 1
+end
+
+% id = w.ProcessId
+
 % Run performance block
+perffolder = sprintf('Performance_%g', id);
+cd(perffolder)
 W_f = Performance(x);
+cd ../
 
 % Run Structures block
-cd Structures
+structfolder = sprintf('Structures_%g', id);
+cd(structfolder)
 W_w = Structures(x);
 cd ../
 
 % Run Loads block
-cd Loads
+loadsfolder = sprintf('Loads_%g', id);
+cd(loadsfolder)
 loadcoefficients = Loads(x);
 cd ../
 
 % Run Aerodynamics block
-cd Aerodynamics
+aerofolder = sprintf('Aero_%g', id);
+cd(aerofolder)
 LD = Aerodynamics(x);
 cd ../
 
@@ -145,7 +161,7 @@ CST_ol = (Const.Fuel.tank_end.*CST_il + (x2(2)/2-Const.Fuel.tank_end)*CST_ol)/(x
     end
 
 % Integrate
-S_1 = integral(@CSTi, Const.Structure.loc_fspar, Const.Structure.loc_rspar)
+S_1 = integral(@CSTi, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 S_2 = integral(@CSTk, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 S_3 = integral(@CSTo, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 
@@ -167,6 +183,6 @@ c1 = Const.AC.WS_max-MTOW/S;
 c2 = V_tank*Const.Fuel.f - W_f/Const.Fuel.rho;
 
 %Combination
-c = [c1,c2];
-ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc17];
+c = [c1,c2]
+ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc17]
 end
