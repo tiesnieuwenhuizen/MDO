@@ -61,9 +61,17 @@ CST_il = x(14:19);
 CST_ou = x(20:25);
 CST_ol = x(26:31);
 
+% Interpolate for tank root airfoil
+CST_iu = (Const.Fuel.tank_start.*CST_iu + (x(2)/2-Const.Fuel.tank_start)*CST_ou)/(x(2)/2);
+CST_il = (Const.Fuel.tank_start.*CST_il + (x(2)/2-Const.Fuel.tank_start)*CST_ol)/(x(2)/2);
+
 % Interpolate for kink aifoil
 CST_ku = (Const.Wing.y_k.*CST_iu + (x(2)/2-Const.Wing.y_k)*CST_ou)/(x(2)/2);
 CST_kl = (Const.Wing.y_k.*CST_il + (x(2)/2-Const.Wing.y_k)*CST_ol)/(x(2)/2);
+
+% Interpolate for tank tip aifoil
+CST_ou = (Const.Fuel.tank_end.*CST_iu + (x(2)/2-Const.Fuel.tank_end)*CST_ou)/(x(2)/2);
+CST_ol = (Const.Fuel.tank_end.*CST_il + (x(2)/2-Const.Fuel.tank_end)*CST_ol)/(x(2)/2);
 
 % Define CST-curves to integrate
     function [y1] = CSTi(n1)

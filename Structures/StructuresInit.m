@@ -7,8 +7,6 @@ function [W_w] = StructuresInit(x,MTOW,MZF)
 global Const;
 
 %% Convert design vector into useful values for EMWET
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INSERT CALCULATIONS %%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% CURRENT VALUES FOR 737 %%%%%%%%%%%%%%%%%%%%%%
 % Run wingplanform code for chords and locations
 wing = wingplanform(x);
 chords = wing(4:6); % [Root chord, kink chord, tip chord]
@@ -51,7 +49,7 @@ fclose(atfile);
 %% Write .init file for EMWET
 
 fid = fopen("wing.init", 'wt');
-fprintf(fid, '%g %g\n', MTOW, MZF);
+fprintf(fid, '%g %g\n', MTOW/9.81, MZF/9.81);
 fprintf(fid, '%g\n', Const.AC.n_max);
 fprintf(fid, '%g %g %g %g\n', x(1)/2, x(2)/2, Const.Wing.n_sec+1, Const.Wing.n_airfoils);
 fprintf(fid, '%g %s\n', 0, "airfoil_root");
@@ -79,7 +77,6 @@ CST_L = x(35:40);
 CST_M = x(42:47);
 L = cstMapLoads(CST_L, y).*x(41).*.5.*Const.Cruise.rho.*Const.Cruise.V^2;
 M = cstMapLoads(CST_M, y).*x(48).*.5.*Const.Cruise.rho.*Const.Cruise.V^2;
-y = y.*(x(2)/2);
 
 % Write to file
 Lfid = fopen("wing.load", 'wt');
@@ -95,7 +92,7 @@ EMWET wing
 
 res = fopen("wing.weight", 'r'); % Open weight file for reading
 data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
-W_w = data{4};
+W_w = data{4}*9.81;
 fclose(res);
 
 end
