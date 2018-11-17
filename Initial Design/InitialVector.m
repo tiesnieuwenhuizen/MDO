@@ -13,12 +13,12 @@ ConstCreator;
 
 
 % Values for deriving design variables
-MTOW_0 = 46040; % kg
-MZF_0 = 37421; % kg
-PL_des = 10925; % kg
-OEW_0 = 26160; % kg
-W_f_0 = 8955; % kg
-W_des_0 = sqrt(MTOW_0*(MTOW_0-W_f_0)); % kg, Formula from assignment, middle of cruise weight
+MTOW_0 = 46040*9.81; %  N
+MZF_0 = 37421*9.81; %  N
+PL_des = 10925*9.81; %  N
+OEW_0 = 26160*9.81; % N
+W_f_0 = 8955*9.81; % N
+W_des_0 = sqrt(MTOW_0*(MTOW_0-W_f_0)); %  N, Formula from assignment, middle of cruise weight
 tc_r_0 = 15.3; % %
 tc_t_0 = 12.2; % %
 c_r_0 = 4.35; % m
@@ -43,13 +43,13 @@ phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
 % Airfoil CST curve calculations - Withcomb 135 airfoil used
 disp('Starting airfoil curvefit')
 
-tc_eppler = 18.1; % %
+tc_whitcomb = 11; % %
 n_CST = 6; % Number of CST coefficients per side
 CST_0 = AirfoilOpt(2*n_CST); % 2*n_CST because both sides will be determined
 
 % Scale airfoils for correct thickness
-CST_r_0 = (tc_r_0/tc_eppler).*CST_0;
-CST_t_0 = (tc_t_0/tc_eppler).*CST_0;
+CST_r_0 = (tc_r_0/tc_whitcomb).*CST_0;
+CST_t_0 = (tc_t_0/tc_whitcomb).*CST_0;
 
 
 
@@ -88,6 +88,6 @@ disp('Finished Structures')
 
 % A-W group contributions
 Const.AWGroup.weight = MTOW_0-W_w_0-W_f_0-PL_des; %MZF_0 - W_w_0;
-D_0 = W_des_0/x0(34); % Drag of the wing for middle of cruise
-D_ref = W_des_0/LD_ref; % Drag of the reference aircraft in middle of cruise
-Const.AWGroup.drag = D_ref - D_0;
+%D_0 = W_des_0/x0(34); % Drag of the wing for middle of cruise
+%D_ref = W_des_0/LD_ref; % Drag of the reference aircraft in middle of cruise
+%Const.AWGroup.drag = D_ref - D_0;
