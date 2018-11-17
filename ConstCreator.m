@@ -38,7 +38,6 @@ Const.Cruise.a = 304.484; % Speed of sound at cruise (from ISA), [m/s]nm
 Const.Cruise.M = Const.Cruise.V/Const.Cruise.a; % Cruise Mach number
 Const.Cruise.mu = 1.5106696E-5; %Cruise Viscosity [kg/ms]
 Const.Cruise.T = 230.695; % Cruise Temperature [T]
-% Const.Cruise.Re = Const.Cruise.rho*
 Const.Cruise.VMO=0.73*sqrt(1.4*287.1*Const.Cruise.T);
 
 

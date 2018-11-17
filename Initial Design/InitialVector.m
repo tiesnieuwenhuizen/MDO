@@ -21,8 +21,8 @@ W_f_0 = 8955; % kg
 W_des_0 = sqrt(MTOW_0*(MTOW_0-W_f_0)); % kg, Formula from assignment, middle of cruise weight
 tc_r_0 = 15.3; % %
 tc_t_0 = 12.2; % %
-c_r_0 = 2.75; % m
-c_t_0 = 0.91; % m
+c_r_0 = 4.35; % m
+c_t_0 = 1.5486; % m
 LD_ref = 16; % - , ASSUMED, NO INFO, L/D for reference aircraft
 
 % Direct inputs to design vector
@@ -32,11 +32,10 @@ b0 = 26.21; % m, total span
 lambda_i_0 = 0.356; % -
 Lambda_i_0 = 15-(c_r_0/(2*b0))*(lambda_i_0-1); % deg
 Lambda_i_0 = deg2rad(Lambda_i_0); % rad
-Lambda_o_0 = Lambda_i_0; % deg
-Lambda_o_0 = deg2rad(Lambda_o_0); % rad
-% lambda_o_0 = lambda_i_0; % -
-phi_i_0 = 0; % deg, ASSUMED, NO INFO
-phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
+Lambda_o_0 = Lambda_i_0; % rad
+lambda_o_0 = 0.4719; % -
+phi_i_0 = 0; % deg
+phi_o_0 = -3.1; % deg 
 
 
 
@@ -51,11 +50,13 @@ CST_0 = AirfoilOpt(2*n_CST); % 2*n_CST because both sides will be determined
 CST_r_0 = (tc_r_0/tc_eppler).*CST_0;
 CST_t_0 = (tc_t_0/tc_eppler).*CST_0;
 
+
+
 disp('Airfoils Parameterised')
 
 % Initialise design vector
 global x0;
-x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_i_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+x0 = [S0, b0, Lambda_i_0, Lambda_o_0, lambda_o_0, phi_i_0, phi_o_0, CST_r_0, CST_t_0, 0, W_f_0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 disp('Design vector initialised')
 disp('Starting Aerodynamics')
