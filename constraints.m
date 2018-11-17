@@ -6,6 +6,8 @@ function [c,ceq] = constraints(x)
 %   Output: Constraint errors
 
 global Const
+global lb_0
+global ub_0
 
 % Run performance block
 W_f = Performance(x);
@@ -49,29 +51,31 @@ cc9     = abs(N2_L-N2_L_c);
 cc10    = abs(LD-LD_c);
 
 
+x2=x(ub_0-lb_0)+lb_0
+
 
 % Inequality Constraints
 MTOW   = W_f+W_w+Const.AC.W_aw;
-S      = x(1);
-b      = x(2);
+S      = x2(1);
+b      = x2(2);
 
 % Extract CST coefficients for numerical integration
-CST_iu = x(8:13);
-CST_il = x(14:19);
-CST_ou = x(20:25);
-CST_ol = x(26:31);
+CST_iu = x2(8:13);
+CST_il = x2(14:19);
+CST_ou = x2(20:25);
+CST_ol = x2(26:31);
 
 % Interpolate for tank root airfoil
-CST_iu = (Const.Fuel.tank_start.*CST_iu + (x(2)/2-Const.Fuel.tank_start)*CST_ou)/(x(2)/2);
-CST_il = (Const.Fuel.tank_start.*CST_il + (x(2)/2-Const.Fuel.tank_start)*CST_ol)/(x(2)/2);
+CST_iu = (Const.Fuel.tank_start.*CST_iu + (x2(2)/2-Const.Fuel.tank_start)*CST_ou)/(x2(2)/2);
+CST_il = (Const.Fuel.tank_start.*CST_il + (x2(2)/2-Const.Fuel.tank_start)*CST_ol)/(x2(2)/2);
 
 % Interpolate for kink aifoil
-CST_ku = (Const.Wing.y_k.*CST_iu + (x(2)/2-Const.Wing.y_k)*CST_ou)/(x(2)/2);
-CST_kl = (Const.Wing.y_k.*CST_il + (x(2)/2-Const.Wing.y_k)*CST_ol)/(x(2)/2);
+CST_ku = (Const.Wing.y_k.*CST_iu + (x2(2)/2-Const.Wing.y_k)*CST_ou)/(x2(2)/2);
+CST_kl = (Const.Wing.y_k.*CST_il + (x2(2)/2-Const.Wing.y_k)*CST_ol)/(x2(2)/2);
 
 % Interpolate for tank tip aifoil
-CST_ou = (Const.Fuel.tank_end.*CST_iu + (x(2)/2-Const.Fuel.tank_end)*CST_ou)/(x(2)/2);
-CST_ol = (Const.Fuel.tank_end.*CST_il + (x(2)/2-Const.Fuel.tank_end)*CST_ol)/(x(2)/2);
+CST_ou = (Const.Fuel.tank_end.*CST_iu + (x2(2)/2-Const.Fuel.tank_end)*CST_ou)/(x2(2)/2);
+CST_ol = (Const.Fuel.tank_end.*CST_il + (x2(2)/2-Const.Fuel.tank_end)*CST_ol)/(x2(2)/2);
 
 % Define CST-curves to integrate
     function [y1] = CSTi(n1)
@@ -119,13 +123,16 @@ S_2 = integral(@CSTk, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 S_3 = integral(@CSTo, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 
 % Scale to actual size
-wing = wingplanform(x);
-S_1 = S_1*wing(4)^2;
-S_2 = S_2*wing(5)^2;
-S_3 = S_3*wing(6)^2;
+wing = wingplanform(x2);
+C_begin=wing(4)-((wing(4)-wing(5))*0.1*(x2(2)/2))/Const.Wing.y_k;
+C_kink=wing(5);
+C_end=wing(5)-((wing(5)-wing(6))*(0.7*b/2-Const.Wing.y_k)/wing(3);
+S_1 = S_1*C_begin^2;
+S_2 = S_2*C_kink^2;
+S_3 = S_3*C_end^2;
 
 % Compute volume
-V_tank = Const.Wing.y_k/3*(S_1+S_2+sqrt(S_1*S_2))+(b-Const.Wing.y_k)/3*(S_2+S_3+sqrt(S_2*S_3));
+V_tank = (Const.Wing.y_k-0.1*b/2)/3*(S_1+S_2+sqrt(S_1*S_2))+(0.7*b/2-Const.Wing.y_k)/3*(S_2+S_3+sqrt(S_2*S_3));
 
 
 
