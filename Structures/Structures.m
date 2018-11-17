@@ -8,6 +8,9 @@ global Const;
 global lb_0;
 global ub_0;
 
+% De-normalise vector
+x = (ub_0-lb_0).*x + lb_0;
+
 %% Convert design vector into useful values for EMWET
 MTOW = x(32) + x(33) + Const.AWGroup.weight;
 MZF = x(32) + Const.AWGroup.weight;
