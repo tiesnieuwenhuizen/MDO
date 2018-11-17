@@ -52,7 +52,7 @@ for i = 1:(Const.Wing.n_sec+1)
     fprintf(fid, '%g %g %g %g %g %g\n', chords(i), x_loc(i), y_loc(i), z_loc(i), Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 end
 fprintf(fid, '%g %g\n', Const.Fuel.tank_start, Const.Fuel.tank_end);
-fprintf(fid, '%g \n', Const.Engines.n/2);
+fprintf(fid, '%g\n', Const.Engines.n/2);
 for i = 1:Const.Engines.n/2
     fprintf(fid, '%g %g\n', Const.Engines.loc(i)/(x(2)/2), Const.Engines.w(i));
 end

@@ -111,7 +111,7 @@ lift=Loadopt(5, array1);
 moment=Loadopt(5, array2);
 
 test1 = cstMapLoads(moment, linspace(0,1,14));
-plot(linspace(0,1,14),test1, y,Cm_c4)
+plot(linspace(0,1,14).*(x(2)/2),test1.*SF_M*.5*Const.Cruise.rho*Const.Cruise.V^2, y.*(x(2)/2),Cm_c4.*SF_M*.5*Const.Cruise.rho*Const.Cruise.V^2)
 
 out=[lift' SF_L moment' SF_M];
 
