@@ -19,7 +19,7 @@ cd ../
 
 % Run Loads block
 cd Loads
-loadcoefficients = Loads(x)
+loadcoefficients = Loads(x);
 cd ../
 
 % Run Aerodynamics block
@@ -100,42 +100,48 @@ CST_ol = (Const.Fuel.tank_end.*CST_il + (x2(2)/2-Const.Fuel.tank_end)*CST_ol)/(x
 
 % Define CST-curves to integrate
     function [y1] = CSTi(n1)
-        C = n1^0.5*(1-n1)^1;
+        Se1 = 0;
+        Se2 = 0;
+        C = n1.^0.5.*(1-n1).^1;
         for j = 0:5
             fnum = factorial(5)/(factorial(j)*factorial(5-j));
-            Se = Se + CST_iu(j+1) * fnum * n1^j * (1-n1)^(5-j);
+            Se1 = Se1 + CST_iu(j+1) * fnum * n1.^j .* (1-n1).^(5-j);
         end
         for k = 0:5
             fnum = factorial(5)/(factorial(k)*factorial(5-k));
-            Se = Se + CST_il(k+1) * fnum * n1^k * (1-n1)^(5-k);
+            Se2 = Se2 + CST_il(k+1) * fnum * n1.^k .* (1-n1).^(5-k);
         end
-        y1 = C*Se1 - C*Se2;
+        y1 = C.*Se1 - C.*Se2;
     end
 
     function [y1] = CSTk(n1)
-        C = n1^0.5*(1-n1)^1;
+        Se1 = 0;
+        Se2 = 0;
+        C = n1.^0.5.*(1-n1).^1;
         for j = 0:5
             fnum = factorial(5)/(factorial(j)*factorial(5-j));
-            Se = Se + CST_ku(j+1) * fnum * n1^j * (1-n1)^(5-j);
+            Se1 = Se1 + CST_ku(j+1) * fnum * n1.^j .* (1-n1).^(5-j);
         end
         for k = 0:5
             fnum = factorial(5)/(factorial(k)*factorial(5-k));
-            Se = Se + CST_kl(k+1) * fnum * n1^k * (1-n1)^(5-k);
+            Se2 = Se2 + CST_kl(k+1) * fnum * n1.^k .* (1-n1).^(5-k);
         end
-        y1 = C*Se1 - C*Se2;
+        y1 = C.*Se1 - C.*Se2;
     end
 
     function [y2] = CSTo(n1)
-        C = n1^0.5*(1-n1)^1;
+        Se1 = 0; 
+        Se2 = 0;
+        C = n1.^0.5.*(1-n1).^1;
         for j = 0:5
             fnum = factorial(5)/(factorial(j)*factorial(5-j));
-            Se = Se + CST_ou(j+1) * fnum * n1^j * (1-n1)^(5-j);
+            Se1 = Se2 + CST_ou(j+1) * fnum * n1.^j .* (1-n1).^(5-j);
         end
         for k = 0:5
             fnum = factorial(5)/(factorial(k)*factorial(5-k));
-            Se = Se + CST_ol(k+1) * fnum * n1^k * (1-n1)^(5-k);
+            Se2 = Se2 + CST_ol(k+1) * fnum * n1.^k .* (1-n1).^(5-k);
         end
-        y2 = C*Se1 - C*Se2;
+        y2 = C.*Se1 - C.*Se2;
     end
 
 % Integrate

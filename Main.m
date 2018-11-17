@@ -4,6 +4,7 @@ Use this file to edit process flow
 %}
 clc
 clear all
+close all
 
 
 % Create constant value object
