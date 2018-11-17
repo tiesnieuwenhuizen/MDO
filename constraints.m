@@ -19,7 +19,7 @@ cd ../
 
 % Run Loads block
 cd Loads
-[CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, N2_L, SF_L, CST_M_1, CST_M_2, CST_M_3, CST_M_4, CST_M_5, N2_M, SF_M] = Loads(x);
+loadcoefficients = Loads(x)
 cd ../
 
 % Run Aerodynamics block
@@ -52,28 +52,31 @@ W_w_c       = x(32);
 
 cc1     = abs(W_f-W_f_c);
 cc2     = abs(W_w-W_w_c);
-cc3     = abs(CST_L_1-CST_L_1_c);
-cc4     = abs(CST_L_2-CST_L_2_c);
-cc5     = abs(CST_L_3-CST_L_3_c);
-cc6     = abs(CST_L_4-CST_L_4_c);
-cc7     = abs(CST_L_5-CST_L_5_c);
-cc8     = abs(SF_L-SF_L_c);
-cc9     = abs(N2_L-N2_L_c);
-cc10    = abs(LD-LD_c);
-cc11     = abs(CST_M_1-CST_M_1_c);
-cc12     = abs(CST_M_2-CST_M_2_c);
-cc13     = abs(CST_M_3-CST_M_3_c);
-cc14     = abs(CST_M_4-CST_M_4_c);
-cc15     = abs(CST_M_5-CST_M_5_c);
-cc16     = abs(SF_M-SF_M_c);
-cc17     = abs(N2_M-N2_M_c);
+cc3    = abs(LD-LD_c);
+cc4     = abs(loadcoefficients(1)-CST_L_1_c);
+cc5     = abs(loadcoefficients(2)-CST_L_2_c);
+cc6     = abs(loadcoefficients(3)-CST_L_3_c);
+cc7     = abs(loadcoefficients(4)-CST_L_4_c);
+cc8     = abs(loadcoefficients(5)-CST_L_5_c);
+cc9     = abs(loadcoefficients(6)-N2_L_c);
+cc10     = abs(loadcoefficients(7)-SF_L_c);
 
 
-x2=x(ub_0-lb_0)+lb_0;
+cc11    = abs(loadcoefficients(8)-CST_M_1_c);
+cc12    = abs(loadcoefficients(9)-CST_M_2_c);
+cc13    = abs(loadcoefficients(10)-CST_M_3_c);
+cc14    = abs(loadcoefficients(11)-CST_M_4_c);
+cc15    = abs(loadcoefficients(12)-CST_M_5_c);
+cc16    = abs(loadcoefficients(13)-N2_M_c);
+cc17    = abs(loadcoefficients(14)-SF_M_c);
+
+
+
+x2=x.*(ub_0-lb_0)+lb_0;
 
 
 % Inequality Constraints
-MTOW   = W_f+W_w+Const.AC.W_aw;
+MTOW   = W_f+W_w+Const.AWGroup.weight;
 S      = x2(1);
 b      = x2(2);
 

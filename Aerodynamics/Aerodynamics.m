@@ -26,7 +26,7 @@ x2=b_i*tan(Lambda_i)+wing(3)*tan(Lambda_o);
 
 lambda_tot=wing(6)/wing(4);
 MAC = 2/3*wing(4)*((1+lambda_tot+lambda_tot^2)/(1+lambda_tot));
-MTOW=Const.AWgroup.weight+x(32)+x(33);
+MTOW=Const.AWGroup.weight+x(32)+x(33);
 W_d=sqrt(MTOW*(MTOW-x(33)));
 
 % Wing planform geometry 
@@ -54,15 +54,15 @@ AC.Aero.V     = Const.Cruise.V;            % flight speed (m/s)
 AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
 AC.Aero.alt   = Const.Cruise.h;             % flight altitude (m)
 AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
-AC.Aero.M     = Const.cruise.M;           % flight Mach number 
-AC.Aero.CL    = W_d/(0.5*Const.Wing.rho*Const.Wing.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
+AC.Aero.M     = Const.Cruise.M;           % flight Mach number 
+AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
 %AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 
 
 
 %% 
 Res = Q3D_solver(AC);
 
-CD_AW=Const.AWgroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
+CD_AW=Const.AWGroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
 
 out=((Res.CLwing/(Res.CDwing+CD_AW))-lb_0(34))/(ub_0(34)-lb_0(34));
 
