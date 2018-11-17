@@ -61,6 +61,7 @@ for i = 1:4
 end
 fprintf(fid, '%g %g\n', Const.Structure.panelfact, Const.Structure.rib_pitch);
 fprintf(fid, '%g', Const.Structure.displayoption);
+fclose(fid);
 
 %% Write .load file for EMWET
 
@@ -70,13 +71,14 @@ CST_L = x(35:40);
 CST_M = x(42:47);
 L = cstMapLoads(CST_L, y).*x(41).*.5.*Const.Cruise.rho.*Const.Cruise.V^2;
 M = cstMapLoads(CST_M, y).*x(48).*.5.*Const.Cruise.rho.*Const.Cruise.V^2;
+y = y.*(x(2)/2);
 
 % Write to file
 Lfid = fopen("wing.load", 'wt');
 for i = 1:length(y)
     fprintf(Lfid, '%g %g %g\n', y(i), L(i), M(i));
 end
-
+fclose(Lfid);
 %% Execute EMWET
 
 EMWET wing
@@ -86,6 +88,7 @@ EMWET wing
 res = fopen("wing.weight", 'r'); % Open weight file for reading
 data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
 W_w = data{4};
+fclose(res);
 
 end
 

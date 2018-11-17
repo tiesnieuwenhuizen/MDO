@@ -93,27 +93,23 @@ Res = Q3D_solver(AC);
 % Parameterize the pitching moment and lift distribution using CST
 % coefficients
 
-Cm_c4_temp=Res.Wing.cm_c4;
+chords = Res.Wing.chord;
+
+Cm_c4_temp=Res.Wing.cm_c4.*chords;
 ccl_temp=Res.Wing.ccl;
-y=Res.Wing.Yst;
+y=Res.Wing.Yst./(x(2)/2);
 
 SF_L=max(ccl_temp);
-ccl=ccl_temp/SF_L;
+ccl=ccl_temp./SF_L;
 
-SF_M=max(Cm_c4_temp);
-Cm_c4=Cm_c4_temp/SF_M;
-
-chords = Res.Wing.chord;
-ccm_c4 = Cm_c4.*chords;
+SF_M=max(abs(Cm_c4_temp));
+Cm_c4=Cm_c4_temp./SF_M;
 
 array1=[y ccl];
-array2=[y ccm_c4];
+array2=[y Cm_c4];
 
 lift=Loadopt(5, array1);
 moment=Loadopt(5, array2);
-
-
-
 
 out=[lift' SF_L moment' SF_M];
 
