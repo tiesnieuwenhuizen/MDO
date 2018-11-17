@@ -10,27 +10,30 @@ global lb_0
 global ub_0
 
 % Parallell info
-w = getCurrentWorker;
-id = w.ProcessId;
+% w = getCurrentWorker;
+% id = w.ProcessId;
 
 % Run performance block
 W_f = Performance(x);
 
 % Run Structures block
-strfolder = sprintf('Structures_%i',id);
-cd(strfolder)
+% strfolder = sprintf('Structures_%i',id);
+% cd(strfolder)
+cd Structures
 W_w = Structures(x);
 cd ../
 
 % Run Loads block
-loadfolder = sprintf('Loads_%i', id);
-cd(loadfolder)
-[CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, N2_L, SF_L] = Loads(x);
+% loadfolder = sprintf('Loads_%i', id);
+% cd(loadfolder)
+cd Loads
+[CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, N2_L, SF_L, CST_M_1, CST_M_2, CST_M_3, CST_M_4, CST_M_5, N2_M, SF_M] = Loads(x);
 cd ../
 
 % Run Aerodynamics block
-aerofolder = sprintf('Aero_%i', id);
-cd(aerofolder)
+% aerofolder = sprintf('Aero_%i', id);
+% cd(aerofolder)
+cd Aerodynamics
 LD = Aerodynamics(x);
 cd ../
 
@@ -45,6 +48,13 @@ CST_L_5_c   = x(39);
 SF_L_c      = x(40);
 N2_L_c      = x(41);
 LD_c        = x(34);
+CST_M_1_c   = x(42);
+CST_M_2_c   = x(43);
+CST_M_3_c   = x(44);
+CST_M_4_c   = x(45);
+CST_M_5_c   = x(46);
+SF_M_c      = x(48);
+N2_M_c      = x(47);
 
 cc1     = abs(W_f-W_f_c);
 cc2     = abs(W_w-W_w_c);
@@ -56,7 +66,13 @@ cc7     = abs(CST_L_5-CST_L_5_c);
 cc8     = abs(SF_L-SF_L_c);
 cc9     = abs(N2_L-N2_L_c);
 cc10    = abs(LD-LD_c);
-
+cc11     = abs(CST_M_1-CST_M_1_c);
+cc12     = abs(CST_M_2-CST_M_2_c);
+cc13     = abs(CST_M_3-CST_M_3_c);
+cc14     = abs(CST_M_4-CST_M_4_c);
+cc15     = abs(CST_M_5-CST_M_5_c);
+cc16     = abs(SF_M-SF_M_c);
+cc17     = abs(N2_M-N2_M_c);
 
 x2=x(ub_0-lb_0)+lb_0
 
@@ -148,5 +164,5 @@ c2 = V_tank*Const.Fuel.f - W_f/Const.Fuel.rho;
 
 %Combination
 c = [c1,c2];
-ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10];
+ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc17];
 end

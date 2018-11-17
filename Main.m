@@ -81,20 +81,20 @@ ub = ones(48,1);
 
 
 % Set up parralell stuff
-n_processors = 12; % Number of logical processors
-% pool = parpool(n_processors);
-
-parfor i=1:n_processors
-    w = getCurrentWorker;
-    id = w.ProcessId;
-%     id = num2str(id);
-    aerofolder = sprintf('Aero_%f', id);
-    copyfile('Aerodynamics', aerofolder);
-    loadsfolder = sprintf('Loads_%f', id);
-    copyfile('Loads', loadsfolder);
-    structfolder = sprintf('Structures_%f', id);
-    copyfile('Structures', structfolder);
-end
+% n_processors = 12; % Number of logical processors
+% % pool = parpool(n_processors);
+% 
+% parfor i=1:n_processors
+%     w = getCurrentWorker;
+%     id = w.ProcessId;
+% %     id = num2str(id);
+%     aerofolder = sprintf('Aero_%f', id);
+%     copyfile('Aerodynamics', aerofolder);
+%     loadsfolder = sprintf('Loads_%f', id);
+%     copyfile('Loads', loadsfolder);
+%     structfolder = sprintf('Structures_%f', id);
+%     copyfile('Structures', structfolder);
+% end
 
 % fmincon
 
@@ -102,7 +102,7 @@ end
 options.Display         = 'iter-detailed';
 options.Algorithm       = 'sqp';
 options.FunValCheck     = 'off';
-options.UseParallel     = true;
+% options.UseParallel     = true;
 options.DiffMinChange   = 1e-6;         % Minimum change while gradient searching
 options.DiffMaxChange   = 5e-2;         % Maximum change while gradient searching
 options.TolCon          = 1e-6;         % Maximum difference between two subsequent constraint vectors [c and ceq]
