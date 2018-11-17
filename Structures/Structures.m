@@ -8,6 +8,9 @@ global Const;
 global lb_0;
 global ub_0;
 
+x=(ub_0-lb_0).*x+lb_0;
+
+
 %% Convert design vector into useful values for EMWET
 MTOW = x(32) + x(33) + Const.AWGroup.weight;
 MZF = x(32) + Const.AWGroup.weight;
@@ -76,7 +79,7 @@ fclose(fid);
 %% Write .load file for EMWET
 
 % Get data points from CST curves
-y = linspace(0,1,14);
+y = linspace(0,1,14);                 %%%%%%%%%%%%%%
 CST_L = x(35:40);
 CST_M = x(42:47);
 L = cstMapLoads(CST_L, y).*x(41).*.5.*Const.Cruise.rho.*Const.Cruise.V^2;
@@ -96,8 +99,8 @@ EMWET wing
 
 res = fopen("wing.weight", 'r'); % Open weight file for reading
 data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
-W_w_nn = data{4}*9.81;
-W_w = (W_w_nn-lb_0(32))/(ub_0(32)-lb_0(32));
+W_w_nn = data{4}*9.81
+W_w = (W_w_nn-lb_0(32))/(ub_0(32)-lb_0(32))
 fclose(res);
 
 end

@@ -2,6 +2,9 @@
 This is the main executable file for the optimisation
 Use this file to edit process flow
 %}
+clc
+clear all
+
 
 % Create constant value object
 ConstCreator
@@ -67,7 +70,7 @@ InitialVector
 % Define bounds
 global lb_0;
 global ub_0;
-lb_0 = [20,   Const.Wing.y_k*2, 0,  0,  0.2, -5, -5, 0.85*x0(8:31), 1000,     1000,   5,  0.85*x0(35:39), 0, 0,        0.85*x0(42:46), 0, 0 ]; 
+lb_0 = [20,   Const.Wing.y_k*2, 0,  0,  0.2, -5, -5, 0.85*x0(8:31), 1000,     1000,   5,  0.85*x0(35:39), 0, 0,        1.15*x0(42:46), 0, 0 ]; 
 ub_0 = [x0(1)*2, 36,               deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33), 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, 3*x0(47)]; 
     
 % Normalise initial vector
@@ -76,8 +79,8 @@ x0n = (x0-lb_0)./(ub_0-lb_0);
 % Reverse normalisation: x_0 = (ub_0-lb_0).*x_0n+lb_0
 
 % Make normalised bounds
-lb = zeros(48,1);
-ub = ones(48,1);
+lb = zeros(1,48);
+ub = ones(1,48);
 
 
 % fmincon
@@ -93,5 +96,5 @@ options.TolFun          = 1e-6;         % Maximum difference between two subsequ
 options.TolX            = 1e-6;         % Maximum difference between two subsequent design vectors
 
 tic;
-[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0,[],[],[],[],lb,ub,@(x) constraints(x),options);
+[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0n,[],[],[],[],lb,ub,@(x) constraints(x),options);
 toc;

@@ -7,7 +7,7 @@ global ub_0;
 global lb_0;
 
 %% Aerodynamic solver setting
-x = ub_0.*x_n+lb_0;
+x = (ub_0-lb_0).*x_n+lb_0;
 
 
 wing=wingplanform(x);
@@ -65,17 +65,17 @@ Cm_c4_temp=Res.Wing.cm_c4.*chords;
 ccl_temp=Res.Wing.ccl;
 y=Res.Wing.Yst./(x(2)/2);
 
-SF_L=max(ccl_temp);
+SF_L=max(ccl_temp)
 ccl=ccl_temp./SF_L;
 
-SF_M=max(abs(Cm_c4_temp));
+SF_M=max(abs(Cm_c4_temp))
 Cm_c4=Cm_c4_temp./SF_M;
 
 array1=[y ccl];
 array2=[y Cm_c4];
 
-lift=Loadopt(5, array1);
-moment=Loadopt(5, array2);
+lift=Loadopt(5, array1)
+moment=Loadopt(5, array2)
 
 out=([lift' SF_L moment' SF_M]-lb_0(35:48))/(ub_0(35:48)- lb_0(35:48));
 

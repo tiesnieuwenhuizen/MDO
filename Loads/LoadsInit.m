@@ -77,6 +77,6 @@ moment=Loadopt(5, array2);
 
 
 
-out=[lift' SF_L moment' SF_M];
+out=[lift' SF_L moment' SF_M]
 
 end
