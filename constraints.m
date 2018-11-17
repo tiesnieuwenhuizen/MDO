@@ -146,7 +146,7 @@ CST_ol = (Const.Fuel.tank_end.*CST_il + (x2(2)/2-Const.Fuel.tank_end)*CST_ol)/(x
     end
 
 % Integrate
-S_1 = integral(@CSTi, Const.Structure.loc_fspar, Const.Structure.loc_rspar)
+S_1 = integral(@CSTi, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 S_2 = integral(@CSTk, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 S_3 = integral(@CSTo, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 
