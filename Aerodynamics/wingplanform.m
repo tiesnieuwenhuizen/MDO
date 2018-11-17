@@ -2,12 +2,12 @@ function [wingplan]=wingplanform(x)
 
 global Const;
 
-Lambda_TE= %Const.Wing.Lambda_TE_i;  
-Lambda_LE= %x(3);
-b_i= %Const.Wing.y_k;
-lambda_o= %x(5);
-b=  %x(2);
-S=  %x(1);
+Lambda_TE= Const.Wing.Lambda_TE_i;  
+Lambda_LE= x(3);
+b_i= Const.Wing.y_k;
+lambda_o= x(5);
+b=  x(2);
+S=  x(1);
 
 
 
