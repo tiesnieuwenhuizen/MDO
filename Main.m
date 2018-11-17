@@ -71,9 +71,9 @@ lb_0 = [20,   Const.Wing.y_k*2, 0,  0,  0.2, -5, -5, 0.85*x0(8:31), 1000,     10
 ub_0 = [x0*2, 36,               deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33), 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, 3*x0(47)]; 
     
 % Normalise initial vector
-x0n = (x0-lb_0)./ub_0;
+x0n = (x0-lb_0)./(ub_0-lb_0);
 
-% Reverse normalisation: x_0 = ub_0.*x_0n+lb_0
+% Reverse normalisation: x_0 = (ub_0-lb_0).*x_0n+lb_0
 
 % Make normalised bounds
 lb = zeros(48,1);

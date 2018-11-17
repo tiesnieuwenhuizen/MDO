@@ -13,13 +13,13 @@ Const.Material.ystress_c = 2.95e8; % Compression yield stress [Pa]
 % Structure Data
 Const.Structure.panelfact = 0.96; % Panel factor for Z-type stringers
 Const.Structure.rib_pitch = 0.5; % Rib pitch [m]
-Const.Structure.loc_fspar = 0.2; % Front spar location [-]
-Const.Structure.loc_rspar = 0.8; % Rear spar location [-]
+Const.Structure.loc_fspar = 0.15; % Front spar location [-]
+Const.Structure.loc_rspar = 0.6; % Rear spar location [-]
 Const.Structure.displayoption = 0; % EMWET display option
 
 % Aircraft Data
 Const.AC.Range  = 1794*1852; % Design range, [nm] to [m]
-Const.AC.WS_max = []; % maximum permissible wing loading [N/m]
+Const.AC.WS_max = 46040*9.81/77.3; % maximum permissible wing loading [N/m²]
 % Const.AC.W_fuse = ; % Weight of the fuselage [N] -> ALREADY DEFINED IN InitialVector.m
 Const.AC.n_max = 2.5; % Maximum load factor, from assignment [-]
 
