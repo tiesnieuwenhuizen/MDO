@@ -30,10 +30,10 @@ LD_ref = 16; % - , ASSUMED, NO INFO, L/D for reference aircraft
 S0 = 77.3; % m^2, total area
 b0 = 26.21; % m, total span
 lambda_i_0 = 0.356; % -
-Lambda_i_0 = 15-(c_r_0/(2*b0))*(lambda_i_0-1); % deg
-Lambda_i_0 = deg2rad(Lambda_i_0); % rad
+Lambda_0 = atan(tan(deg2rad(15))-(c_r_0/(2*b0))*(lambda_i_0-1)); % deg
+Lambda_i_0 = Lambda_0; % rad
 Lambda_o_0 = Lambda_i_0; % deg
-lambda_o_0 = 0.4719; % -
+lambda_o_0 = 0.4795259; % -
 phi_i_0 = 0; % deg, ASSUMED, NO INFO
 phi_o_0 = -3.1; % deg, ASSUMED, NO INFO
 

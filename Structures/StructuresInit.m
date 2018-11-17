@@ -17,29 +17,33 @@ y_loc = [0, Const.Wing.y_k, x(2)/2]; % [y_LE_r, y_LE_k, y_LE_t]
 z_loc = [0, 0, 0]; % [z_LE_r, z_LE_k, z_LE_t]
 
 % Plot planform
-plot(y_loc, x_loc, y_loc, x_loc+chords)
-axis equal
+% plot(y_loc, x_loc, y_loc, x_loc+chords)
+% axis equal
 
 % Write airfoil data files
 nx = 20; % Number of x-locations for coordinate files
 coor = linspace(0,1,nx); % X-locations
-airfoil_root = [fliplr(cstMap(x(8:13),coor)), cstMap(x(14:19),coor)]; % Root airfoil coordinates
-airfoil_tip = [fliplr(cstMap(x(20:25),coor)), cstMap(x(26:31),coor)]; % Tip airfoil coordinates
+airfoil_root = [cstMap(x(8:13),coor), cstMap(x(14:19),coor)]; % Root airfoil coordinates
+airfoil_tip = [cstMap(x(20:25),coor), cstMap(x(26:31),coor)]; % Tip airfoil coordinates
+
+% Plot
+plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40))
+axis equal
 
 arfile = fopen("airfoil_root.dat", 'wt');
 for i = 1:nx
-    fprintf(arfile, '%g %g\n', coor(nx-i+1), airfoil_root(i)); % Print upper curve from LE to TE as per manual
+    fprintf(arfile, '%g %g\n', coor(nx-i+1), airfoil_root(nx-i+1)); % Print upper curve from TE to LE as per manual
 end
-for j = 1:nx
-    fprintf(arfile, '%g %g\n', coor(j), airfoil_root(nx+j)); % Print lower curve from TE to LE as per manual
+for j = 2:nx
+    fprintf(arfile, '%g %g\n', coor(j), airfoil_root(nx+j)); % Print lower curve from LE to TE as per manual
 end
 fclose(arfile);
 
 atfile = fopen("airfoil_tip.dat", 'wt');
 for k = 1:nx
-    fprintf(atfile, '%g %g\n', coor(nx-k+1), airfoil_tip(k)); % Print upper curve from LE to TE as per manual
+    fprintf(atfile, '%g %g\n', coor(nx-k+1), airfoil_tip(nx-k+1)); % Print upper curve from LE to TE as per manual
 end
-for j = 1:nx
+for j = 2:nx
     fprintf(atfile, '%g %g\n', coor(k), airfoil_tip(nx+k)); % Print lower curve from TE to LE as per manual
 end
 fclose(atfile);
