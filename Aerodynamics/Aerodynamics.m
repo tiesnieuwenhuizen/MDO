@@ -56,7 +56,7 @@ x2=b_i*tan(Lambda_i)+wing(3)*tan(Lambda_o);
 lambda_tot=wing(6)/wing(4);
 MAC = 2/3*wing(4)*((1+lambda_tot+lambda_tot^2)/(1+lambda_tot));
 MTOW=Const.AWgroup.weight+x(32)+x(33);
-W_d=sqrt(MTOW*(MTOW-x(33)))
+W_d=sqrt(MTOW*(MTOW-x(33)));
 
 % Wing planform geometry 
 %                x    y     z     chord(m)    twist angle (deg) 

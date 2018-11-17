@@ -9,7 +9,7 @@ ub = [ones(n_CST,1); 1]; % Upper bounds
 
 
 
-options=optimset('Display','Iter');
+options=optimset('Display','none');
 % Optimiser
 
 
