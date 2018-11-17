@@ -74,7 +74,7 @@ load = LoadsInit(x0, MTOW_0);
 x0(35:48) = load;
 cd ../
 
-disp('Finished loading, starting Structures')
+disp('Finished Loading, starting Structures')
 
 % Structure calculations
 cd Structures
