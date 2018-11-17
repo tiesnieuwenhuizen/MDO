@@ -9,7 +9,7 @@ ConstCreator
 % Create Initial Design Vector
 InitialVector
 
-% Vector
+% Vector layout:
 % 1  S
 % 2  b
 % 3  Lambda_i
@@ -75,7 +75,7 @@ x0n = (x0-lb_0)./ub_0;
 
 % Reverse normalisation: x_0 = ub_0.*x_0n+lb_0
 
-% Normalised bounds
+% Make normalised bounds
 lb = zeros(48,1);
 ub = ones(48,1);
 

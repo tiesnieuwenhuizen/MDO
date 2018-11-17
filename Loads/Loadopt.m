@@ -20,15 +20,16 @@ options=optimset('Display','Iter');
 
 
      % Split into x and y
-     yloc = [array(:,1); 0]
+     yloc = [array(:,1)];
+     yloc = yloc./yloc(end);
      
-     value = [array(:,2); 0];
+     value = [array(:,2)];
      
      
 
 
      % Map CST curves to x-locations in .dat file
-     value_cst = cstMapLoads(CST, yloc);
+     value_cst = cstMapLoads(CST, yloc)
      
 
      % Errors for upper and lower
@@ -39,9 +40,8 @@ options=optimset('Display','Iter');
      % Total error
      err = sum(err.^2);
    end
-    
 
-CST = fmincon(@LoadObj,x0,[],[],[],[],lb,ub,[],options)
+CST = fmincon(@LoadObj,x0,[],[],[],[],lb,ub,[],options);
   
 end
 %CST = ;

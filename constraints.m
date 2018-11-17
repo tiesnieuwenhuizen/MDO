@@ -5,6 +5,8 @@ function [c,ceq] = constraints(x)
 %   Inputs: Design vector (non-normalised!!!)
 %   Output: Constraint errors
 
+global Const
+
 % Run performance block
 W_f = Performance(x);
 
@@ -15,7 +17,7 @@ cd ../
 
 % Run Loads block
 cd Loads
-[CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, SF_L, N2_L] = Loads(x);
+[CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, N2_L, SF_L] = Loads(x);
 cd ../
 
 % Run Aerodynamics block
@@ -53,15 +55,68 @@ MTOW   = W_f+W_w+Const.AC.W_aw;
 S      = x(1);
 b      = x(2);
 
+% Extract CST coefficients for numerical integration
+CST_iu = x(8:13);
+CST_il = x(14:19);
+CST_ou = x(20:25);
+CST_ol = x(26:31);
 
-    function [y1] = f1(x1)
-        
+% Interpolate for kink aifoil
+CST_ku = (Const.Wing.y_k.*CST_iu + (x(2)/2-Const.Wing.y_k)*CST_ou)/(x(2)/2);
+CST_kl = (Const.Wing.y_k.*CST_il + (x(2)/2-Const.Wing.y_k)*CST_ol)/(x(2)/2);
+
+% Define CST-curves to integrate
+    function [y1] = CSTi(n1)
+        C = n1^0.5*(1-n1)^1;
+        for j = 0:5
+            fnum = factorial(5)/(factorial(j)*factorial(5-j));
+            Se = Se + CST_iu(j+1) * fnum * n1^j * (1-n1)^(5-j);
+        end
+        for k = 0:5
+            fnum = factorial(5)/(factorial(k)*factorial(5-k));
+            Se = Se + CST_il(k+1) * fnum * n1^k * (1-n1)^(5-k);
+        end
+        y1 = C*Se1 - C*Se2;
     end
 
-S_1 =
-S_2 =
-S_3 =
+    function [y1] = CSTk(n1)
+        C = n1^0.5*(1-n1)^1;
+        for j = 0:5
+            fnum = factorial(5)/(factorial(j)*factorial(5-j));
+            Se = Se + CST_ku(j+1) * fnum * n1^j * (1-n1)^(5-j);
+        end
+        for k = 0:5
+            fnum = factorial(5)/(factorial(k)*factorial(5-k));
+            Se = Se + CST_kl(k+1) * fnum * n1^k * (1-n1)^(5-k);
+        end
+        y1 = C*Se1 - C*Se2;
+    end
 
+    function [y2] = CSTo(n1)
+        C = n1^0.5*(1-n1)^1;
+        for j = 0:5
+            fnum = factorial(5)/(factorial(j)*factorial(5-j));
+            Se = Se + CST_ou(j+1) * fnum * n1^j * (1-n1)^(5-j);
+        end
+        for k = 0:5
+            fnum = factorial(5)/(factorial(k)*factorial(5-k));
+            Se = Se + CST_ol(k+1) * fnum * n1^k * (1-n1)^(5-k);
+        end
+        y2 = C*Se1 - C*Se2;
+    end
+
+% Integrate
+S_1 = integral(@CSTi, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
+S_2 = integral(@CSTk, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
+S_3 = integral(@CSTo, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
+
+% Scale to actual size
+wing = wingplanform(x);
+S_1 = S_1*wing(4)^2;
+S_2 = S_2*wing(5)^2;
+S_3 = S_3*wing(6)^2;
+
+% Compute volume
 V_tank = Const.Wing.y_k/3*(S_1+S_2+sqrt(S_1*S_2))+(b-Const.Wing.y_k)/3*(S_2+S_3+sqrt(S_2*S_3));
 
 
