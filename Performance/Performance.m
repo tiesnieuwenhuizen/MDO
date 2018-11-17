@@ -3,6 +3,7 @@ function [out] = Performance(xn)
 %   Input is the design vector, output is the fuel weight
 global ub_0;
 global lb_0;
+global Const;
 
 % De-normalise vector
 x = (ub_0-lb_0).*xn + lb_0;

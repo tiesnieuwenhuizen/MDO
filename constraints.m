@@ -9,21 +9,28 @@ global Const
 global lb_0
 global ub_0
 
+% Parallell info
+w = getCurrentWorker;
+id = w.ProcessId;
+
 % Run performance block
 W_f = Performance(x);
 
 % Run Structures block
-cd Structures
+strfolder = sprintf('Structures_%i',id);
+cd(strfolder)
 W_w = Structures(x);
 cd ../
 
 % Run Loads block
-cd Loads
+loadfolder = sprintf('Loads_%i', id);
+cd(loadfolder)
 [CST_L_1, CST_L_2, CST_L_3, CST_L_4, CST_L_5, N2_L, SF_L] = Loads(x);
 cd ../
 
 % Run Aerodynamics block
-cd Aerodynamics
+aerofolder = sprintf('Aero_%i', id);
+cd(aerofolder)
 LD = Aerodynamics(x);
 cd ../
 

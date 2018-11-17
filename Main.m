@@ -68,7 +68,7 @@ InitialVector
 global lb_0;
 global ub_0;
 lb_0 = [20,   Const.Wing.y_k*2, 0,  0,  0.2, -5, -5, 0.85*x0(8:31), 1000,     1000,   5,  0.85*x0(35:39), 0, 0,        0.85*x0(42:46), 0, 0 ]; 
-ub_0 = [x0*2, 36,               deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33), 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, 3*x0(47)]; 
+ub_0 = [x0(1), 36, deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33), 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, 3*x0(47)]; 
     
 % Normalise initial vector
 x0n = (x0-lb_0)./(ub_0-lb_0);
@@ -80,17 +80,35 @@ lb = zeros(48,1);
 ub = ones(48,1);
 
 
+% Set up parralell stuff
+n_processors = 12; % Number of logical processors
+% pool = parpool(n_processors);
+
+parfor i=1:n_processors
+    w = getCurrentWorker;
+    id = w.ProcessId;
+%     id = num2str(id);
+    aerofolder = sprintf('Aero_%f', id);
+    copyfile('Aerodynamics', aerofolder);
+    loadsfolder = sprintf('Loads_%f', id);
+    copyfile('Loads', loadsfolder);
+    structfolder = sprintf('Structures_%f', id);
+    copyfile('Structures', structfolder);
+end
+
 % fmincon
 
 % Options for the optimization
 options.Display         = 'iter-detailed';
 options.Algorithm       = 'sqp';
 options.FunValCheck     = 'off';
+options.UseParallel     = true;
 options.DiffMinChange   = 1e-6;         % Minimum change while gradient searching
 options.DiffMaxChange   = 5e-2;         % Maximum change while gradient searching
 options.TolCon          = 1e-6;         % Maximum difference between two subsequent constraint vectors [c and ceq]
 options.TolFun          = 1e-6;         % Maximum difference between two subsequent objective value
 options.TolX            = 1e-6;         % Maximum difference between two subsequent design vectors
+
 
 tic;
 [x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0,[],[],[],[],lb,ub,@(x) constraints(x),options);
