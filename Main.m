@@ -69,13 +69,13 @@ InitialVector
 % Set up optimiser
 
 % Define bounds
-global lb_0;
-global ub_0;
+%global lb_0;
+%global ub_0;
 lb_0 = [20,      Const.Wing.y_k*2, 0,           0,           0.2, -5, -5, 0.85*x0(8:31), 1000,     1000,       5,  0.85*x0(35:39), 0, 0,        1.15*x0(42:46), 0, 0 ]; 
 ub_0 = [x0(1)*2, 36,               deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33)+0.1, 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, x0(48)]; 
 
-global iterationcounter;
-iterationcounter=0
+%global iterationcounter;
+%iterationcounter=0
 
 
 % Normalise initial vector

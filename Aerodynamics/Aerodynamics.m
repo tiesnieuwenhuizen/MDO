@@ -59,7 +59,7 @@ AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
 AC.Aero.alt   = Const.Cruise.h;             % flight altitude (m)
 AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
 AC.Aero.M     = Const.Cruise.M;           % flight Mach number 
-AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1))          % lift coefficient - comment this line to run the code for given alpha%
+AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1)) ;         % lift coefficient - comment this line to run the code for given alpha%
 %AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 
 
 
@@ -67,17 +67,17 @@ AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1))          % lift
 Res = Q3D_solver(AC);
 
 CD_AW=Const.AWGroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
-CLCD = Res.CLwing/(Res.CDwing+CD_AW)
 
 
 
-if isnan(Res.CDwing)==1
-    LD=0.01
-else
-    LD=Res.CLwing/(Res.CDwing+CD_AW);
-end 
+
+%if isnan(Res.CDwing)==1
+%    LD=5
+%else
+LD=Res.CLwing/(Res.CDwing+CD_AW);
+%end 
     
-out=((LD)-lb_0(34))/(ub_0(34)-lb_0(34));
+out=((LD)-lb_0(34))/(ub_0(34)-lb_0(34))
 
 
 
