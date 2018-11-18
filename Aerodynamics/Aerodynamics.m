@@ -77,13 +77,14 @@ end
 
 
 
-if isnan(Res.CDwing)==1
-    LD=0.01
-else
-    LD=Res.CLwing/(Res.CDwing+CD_AW);
-end 
+
+%if isnan(Res.CDwing)==1
+%    LD=5
+%else
+LD=Res.CLwing/(Res.CDwing+CD_AW);
+%end 
     
-out=((LD)-lb_0(34))/(ub_0(34)-lb_0(34));
+out=((LD)-lb_0(34))/(ub_0(34)-lb_0(34))
 
 
 
