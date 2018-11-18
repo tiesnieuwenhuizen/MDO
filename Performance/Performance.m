@@ -16,7 +16,12 @@ x = (ub_0-lb_0).*xn + lb_0;
 
 MTOW=x(32)+x(33)+Const.AWGroup.weight;
 
-W_f = (1-0.938*exp((Const.AC.Range*Const.Engines.C_T)/(Const.Cruise.V*x(34)))*MTOW);
+% W_f = (1-0.938*exp((Const.AC.Range*Const.Engines.C_T)/(Const.Cruise.V*x(34)))*MTOW);
+W_f = (1-0.938*exp((-Const.AC.Range*Const.Engines.C_T)/(Const.Cruise.V*x(34))))*MTOW;
+
+if W_f<0
+    disp(W_f)
+end
 
 out=(W_f-lb_0(33))/(ub_0(33)-lb_0(33));
 

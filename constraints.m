@@ -196,14 +196,11 @@ ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc
 
 
 A=[[1:48]' x'];
-file=['constraints' num2str(iterationcounter) '.txt'];
+t = now;
+file=['constraints' num2str(t) num2str(id) '.txt'];
 fileID = fopen(file,'w');
 fprintf(fileID,'%6s %25s %25s %25s %25s\n','Index','Design Vector', 'Inequality Constraints', 'Consistency Constraints', 'Objective Function');
 fprintf(fileID,'%6.0f %25.8f %25.8f %25.8f %25,8f\r\n',A,c',ceq',W_f2);
 fclose(fileID);
-
-iterationcounter=iterationcounter+1
-
-
 
 end

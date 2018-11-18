@@ -105,6 +105,26 @@ EMWET wing
 res = fopen("wing.weight", 'r'); % Open weight file for reading
 data = textscan(res, '%s %s %s %f'); % Read first float and assign to W_w
 W_w_nn = data{4}*9.81;
+if isnan(W_w_nn)
+    w = getCurrentWorker;
+    if isobject(w)
+        id = w.ProcessId;
+    else
+        id = 1;
+    end    
+    disp(id)
+    W_w_nn = 130800;
+end
+if W_w_nn < 5000
+    w = getCurrentWorker;
+    if isobject(w)
+        id = w.ProcessId;
+    else
+        id = 1;
+    end    
+    disp(id)
+    W_w_nn = 130800;
+end
 W_w = (W_w_nn-lb_0(32))/(ub_0(32)-lb_0(32));
 fclose(res);
 

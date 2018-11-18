@@ -8,7 +8,7 @@ close all
 
 
 % Create constant value object
-ConstCreator
+% ConstCreator
 
 % Create Initial Design Vector
 InitialVector
@@ -74,8 +74,8 @@ global ub_0;
 lb_0 = [20,      Const.Wing.y_k*2, 0,           0,           0.2, -5, -5, 0.85*x0(8:31), 1000,     1000,       5,  0.85*x0(35:39), 0, 0,        1.15*x0(42:46), 0, 0 ]; 
 ub_0 = [x0(1)*2, 36,               deg2rad(45), deg2rad(45), 1,   5,  5,  1.15*x0(8:31), 2*x0(32), x0(33)+0.1, 30, 1.15*x0(35:39), 1, 3*x0(41), 0.85*x0(42:46), 1, x0(48)]; 
 
-global iterationcounter;
-iterationcounter=0
+% global iterationcounter;
+% iterationcounter=0
 
 
 % Normalise initial vector
@@ -90,6 +90,17 @@ ub = ones(1,48);
 % Set up parralell stuff
 n_processors = 12; % Number of logical processors
 % pool = parpool(n_processors);
+
+id = 1;
+
+aerofolder = sprintf('Aero_%g', id);
+copyfile('Aerodynamics', aerofolder);
+loadsfolder = sprintf('Loads_%g', id);
+copyfile('Loads', loadsfolder);
+structfolder = sprintf('Structures_%g', id);
+copyfile('Structures', structfolder);
+perffolder = sprintf('Performance_%g', id);
+copyfile('Performance', perffolder);
 
 parfor i=1:n_processors
     w = getCurrentWorker;
