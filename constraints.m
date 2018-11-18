@@ -10,6 +10,7 @@ global lb_0
 global ub_0
 global iterationcounter
 
+
 % Run performance block
 W_f = Performance(x);
 
@@ -77,7 +78,10 @@ x2=x.*(ub_0-lb_0)+lb_0;
 
 
 % Inequality Constraints
-MTOW   = W_f+W_w+Const.AWGroup.weight;
+W_f2= (ub_0-lb_0).*W_f+lb_0;
+W_w2= (ub_0-lb_0).*W_w+lb_0;
+
+MTOW   = W_f2+W_w2+Const.AWGroup.weight;
 S      = x2(1);
 b      = x2(2);
 
@@ -165,11 +169,24 @@ V_tank = (Const.Wing.y_k-0.1*b/2)/3*(S_1+S_2+sqrt(S_1*S_2))+(0.7*b/2-Const.Wing.
 
 
 c1 = Const.AC.WS_max-MTOW/S;
-c2 = V_tank*Const.Fuel.f - W_f/Const.Fuel.rho;
+c2 = V_tank*Const.Fuel.f - W_f2/Const.Fuel.rho;
 
-iterationcounter=iterationcounter+1
 
 %Combination
 c = [c1,c2];
 ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc17];
+
+
+
+A=[[1:48]' x' c' ceq' ];
+file=['constraints' num2str(iterationcounter) '.txt'];
+fileID = fopen(file,'w');
+fprintf(fileID,'%6s %25s %25s %25s %25s\n','Index','Design Vector', 'Inequality Constraints', 'Consistency Constraints', 'Objective Function');
+fprintf(fileID,'%6.0f %25.8f %25.8f %25.8f %25,8f\r\n',A);
+fclose(fileID);
+
+iterationcounter=iterationcounter+1
+
+
+
 end

@@ -33,8 +33,8 @@ airfoil_root = [cstMap(x(8:13),coor), cstMap(x(14:19),coor)]; % Root airfoil coo
 airfoil_tip = [cstMap(x(20:25),coor), cstMap(x(26:31),coor)]; % Tip airfoil coordinates
 
 % Plot
-plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40))
-axis equal
+%plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40));
+%axis equal
 
 arfile = fopen("airfoil_root.dat", 'wt');
 for i = 1:nx
@@ -68,7 +68,7 @@ end
 fprintf(fid, '%g %g\n', Const.Fuel.tank_start, Const.Fuel.tank_end);
 fprintf(fid, '%g\n', Const.Engines.n/2);
 for i = 1:Const.Engines.n/2
-    fprintf(fid, '%g %g\n', Const.Engines.loc(i)/(x(2)/2), Const.Engines.w(i));
+    fprintf(fid, '%g %g\n', Const.Engines.loc(i), Const.Engines.w(i));
 end
 for i = 1:4
     fprintf(fid, '%g %g %g %g\n', Const.Material.ymodulus, Const.Material.density, Const.Material.ystress_t, Const.Material.ystress_c);

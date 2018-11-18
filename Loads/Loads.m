@@ -44,10 +44,10 @@ AC.Wing.eta = [0;1];  % Spanwise location of the airfoil sections
 AC.Visc  =0;              % 0 for inviscid and 1 for viscous analysis
 
 % Flight Condition
-AC.Aero.V     = Const.Cruise.V;            % flight speed (m/s)
+AC.Aero.V     = Const.Cruise.VMO;            % flight speed (m/s)
 AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
 AC.Aero.alt   = Const.Cruise.h;             % flight altitude (m)
-AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
+AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.VMO*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
 AC.Aero.M     = Const.Cruise.M;           % flight Mach number 
 AC.Aero.CL    = Const.AC.n_max*MTOW/(0.5*Const.Cruise.rho*Const.Cruise.VMO^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
 %AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 

@@ -25,8 +25,8 @@ airfoil_root = [cstMap(x(8:13),coor), cstMap(x(14:19),coor)]; % Root airfoil coo
 airfoil_tip = [cstMap(x(20:25),coor), cstMap(x(26:31),coor)]; % Tip airfoil coordinates
 
 % Plot
-plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40))
-axis equal
+%plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40));
+%axis equal
 
 arfile = fopen("airfoil_root.dat", 'wt');
 for i = 1:nx
