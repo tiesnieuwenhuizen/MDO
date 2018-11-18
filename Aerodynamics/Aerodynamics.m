@@ -69,7 +69,17 @@ Res = Q3D_solver(AC);
 CD_AW=Const.AWGroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
 CLCD = Res.CLwing/(Res.CDwing+CD_AW)
 
-out=((Res.CLwing/(Res.CDwing+CD_AW))-lb_0(34))/(ub_0(34)-lb_0(34));
+
+
+if isnan(Res.CDwing)==1
+    LD=0.01
+else
+    LD=Res.CLwing/(Res.CDwing+CD_AW);
+end 
+    
+out=((LD)-lb_0(34))/(ub_0(34)-lb_0(34));
+
+
 
 end
 
