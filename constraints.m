@@ -173,19 +173,29 @@ c2 = V_tank*Const.Fuel.f - W_f2/Const.Fuel.rho;
 
 
 %Combination
-c = [c1,c2];
-ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc17];
+c = [c1,c2]
+ceq = [cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15,cc16,cc17]
 
-
-
-A=[[1:48]' x'];
-file=['constraints' num2str(iterationcounter) '.txt'];
-fileID = fopen(file,'w');
-fprintf(fileID,'%6s %25s %25s %25s %25s\n','Index','Design Vector', 'Inequality Constraints', 'Consistency Constraints', 'Objective Function');
-fprintf(fileID,'%6.0f %25.8f %25.8f %25.8f %25,8f\r\n',A,c',ceq',W_f2);
-fclose(fileID);
 
 iterationcounter=iterationcounter+1
+% A1=[1:48]
+% A2=x
+% A3=[c zeros(1,46)]
+% A4=[ceq zeros(1,31)]
+% A5=[W_f2 zeros(1,47)]
+
+
+
+
+% A=[[1:48]; x; [c zeros(1,46)]; [ceq zeros(1,31)]; [W_f2 zeros(1,47)]]';
+% 
+% file=['constraints' num2str(iterationcounter) '.txt'];
+% fileID = fopen(file,'w');
+% fprintf(fileID,'%6s %25s %25s %25s %25s\n','Index','Design Vector', 'Inequality Constraints', 'Consistency Constraints', 'Objective Function');
+% fprintf(fileID,'%6.0f %25.8f %25.8f %25.8f %25,8f\r\n',A);
+% fclose(fileID);
+
+
 
 
 
