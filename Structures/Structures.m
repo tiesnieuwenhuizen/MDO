@@ -68,7 +68,7 @@ end
 fprintf(fid, '%g %g\n', Const.Fuel.tank_start, Const.Fuel.tank_end);
 fprintf(fid, '%g\n', Const.Engines.n/2);
 for i = 1:Const.Engines.n/2
-    fprintf(fid, '%g %g\n', Const.Engines.loc(i), Const.Engines.w(i));
+    fprintf(fid, '%g %g\n', Const.Engines.loc(i)/(x(2)/2), Const.Engines.w(i));
 end
 for i = 1:4
     fprintf(fid, '%g %g %g %g\n', Const.Material.ymodulus, Const.Material.density, Const.Material.ystress_t, Const.Material.ystress_c);
