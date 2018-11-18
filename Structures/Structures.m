@@ -1,12 +1,16 @@
-function [W_w] = Structures(x)
+function [W_w] = Structures(x,lb_0,ub_0,Const)
 %STRUCTURES This function runs the structures discipline, including pre-
 %and post-processing
 %   Inputs: Design vector (non-normalised!!!)
 %   Output: Wing weight
 
-global Const;
-global lb_0;
-global ub_0;
+% global ub_0;
+% global lb_0;
+% global Const;
+
+% ub_0 = u.value;
+% lb_0 = l.value;
+% Const = C.value;
 
 % De-normalise vector
 x = (ub_0-lb_0).*x + lb_0;
@@ -16,7 +20,7 @@ x = (ub_0-lb_0).*x + lb_0;
 MTOW = x(32) + x(33) + Const.AWGroup.weight;
 MZF = x(32) + Const.AWGroup.weight;
 % Run wingplanform code for chords and locations
-wing = wingplanform(x);
+wing = wingplanform(x, Const);
 chords = wing(4:6); % [Root chord, kink chord, tip chord]
 x_loc = [0, Const.Wing.y_k*tan(x(3)), Const.Wing.y_k*tan(x(3))+wing(3)*tan(x(4));]; % [x_LE_r, x_LE_k, x_LE_t]
 y_loc = [0, Const.Wing.y_k, x(2)/2]; % [y_LE_r, y_LE_k, y_LE_t]
@@ -33,8 +37,8 @@ airfoil_root = [cstMap(x(8:13),coor), cstMap(x(14:19),coor)]; % Root airfoil coo
 airfoil_tip = [cstMap(x(20:25),coor), cstMap(x(26:31),coor)]; % Tip airfoil coordinates
 
 % Plot
-plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40))
-axis equal
+% plot(coor,fliplr(airfoil_root(1:20)),coor,airfoil_root(21:40))
+% axis equal
 
 arfile = fopen("airfoil_root.dat", 'wt');
 for i = 1:nx

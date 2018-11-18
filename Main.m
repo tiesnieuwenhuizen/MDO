@@ -105,6 +105,10 @@ parfor i=1:n_processors
     copyfile('Performance', perffolder);
 end
 
+C = parallel.pool.Constant(Const);
+u = parallel.pool.Constant(ub_0);
+l = parallel.pool.Constant(lb_0);
+
 % fmincon
 
 % Options for the optimization
@@ -121,5 +125,5 @@ options.TolX            = 1e-6;         % Maximum difference between two subsequ
 options.PlotFcns = {@optimplotfval, @optimplotx, @optimplotfirstorderopt, @optimplotconstrviolation,@optimplotfirstorderopt};
 
 tic;
-[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0n,[],[],[],[],lb,ub,@(x) constraints(x),options);
+[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@(x)Obj(x,lb_0,ub_0,Const),x0n,[],[],[],[],lb,ub,@(x) constraints(x,lb_0,ub_0,Const),options);
 toc;
