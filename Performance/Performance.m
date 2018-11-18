@@ -1,11 +1,17 @@
-function [out] = Performance(xn)
+function [out] = Performance(xn,lb_0,ub_0,Const)
 %PERFORMANCE This function is basically the Breguet equation
 %   Input is the design vector, output is the fuel weight
-global ub_0;
-global lb_0;
-global Const;
+% global ub_0;
+% global lb_0;
+% global Const;
+
+% ub_0 = u.value;
+% lb_0 = l.value;
+% Const = C.value;
 
 % De-normalise vector
+% test = xn
+% test2 = ub_0
 x = (ub_0-lb_0).*xn + lb_0;
 
 MTOW=x(32)+x(33)+Const.AWGroup.weight;

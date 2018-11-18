@@ -87,13 +87,36 @@ x0n = (x0-lb_0)./(ub_0-lb_0);
 lb = zeros(1,48);
 ub = ones(1,48);
 
+% Set up parralell stuff
+n_processors = 12; % Number of logical processors
+% pool = parpool(n_processors);
+
+parfor i=1:n_processors
+    w = getCurrentWorker;
+    id = w.ProcessId;
+%     id = num2str(id);
+    aerofolder = sprintf('Aero_%g', id);
+    copyfile('Aerodynamics', aerofolder);
+    loadsfolder = sprintf('Loads_%g', id);
+    copyfile('Loads', loadsfolder);
+    structfolder = sprintf('Structures_%g', id);
+    copyfile('Structures', structfolder);
+    perffolder = sprintf('Performance_%g', id);
+    copyfile('Performance', perffolder);
+end
+
+C = parallel.pool.Constant(Const);
+u = parallel.pool.Constant(ub_0);
+l = parallel.pool.Constant(lb_0);
 
 % fmincon
 
 % Options for the optimization
+options = optimset('UseParallel',true);
 options.Display         = 'iter-detailed';
 options.Algorithm       = 'sqp';
 options.FunValCheck     = 'off';
+% options.UseParallel     = true;
 options.DiffMinChange   = 1e-6;         % Minimum change while gradient searching
 options.DiffMaxChange   = 5e-2;         % Maximum change while gradient searching
 options.TolCon          = 1e-6;         % Maximum difference between two subsequent constraint vectors [c and ceq]
@@ -102,5 +125,5 @@ options.TolX            = 1e-6;         % Maximum difference between two subsequ
 options.PlotFcns = {@optimplotfval, @optimplotx, @optimplotfirstorderopt, @optimplotconstrviolation,@optimplotfirstorderopt};
 
 tic;
-[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@Obj,x0n,[],[],[],[],lb,ub,@(x) constraints(x),options);
+[x,FVAL,EXITFLAG,OUTPUT] = fmincon(@(x)Obj(x,lb_0,ub_0,Const),x0n,[],[],[],[],lb,ub,@(x) constraints(x,lb_0,ub_0,Const),options);
 toc;

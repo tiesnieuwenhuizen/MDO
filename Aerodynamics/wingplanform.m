@@ -1,6 +1,6 @@
-function [wingplan]=wingplanform(x)
+function [wingplan]=wingplanform(x,Const)
 
-global Const;
+% global Const;
 
 Lambda_TE= Const.Wing.Lambda_TE_i;  
 Lambda_LE= x(3);

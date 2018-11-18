@@ -1,32 +1,48 @@
-function [c,ceq] = constraints(x)
+function [c,ceq] = constraints(x,lb_0,ub_0,Const)
 %CONSTRAINTS This function executes all of the blocks and compares their
 %outcomes to the "copy" variables in the design vector to obtain
 %constraints
 %   Inputs: Design vector (non-normalised!!!)
 %   Output: Constraint errors
 
-global Const
-global lb_0
-global ub_0
-global iterationcounter
+% global Const
+% global lb_0
+% global ub_0
+% global iterationcounter
+
+% Parallel stuff
+w = getCurrentWorker;
+if isobject(w)
+    id = w.ProcessId;
+else
+    id = 1;
+end
+
+% id = w.ProcessId
 
 
 % Run performance block
-W_f = Performance(x);
+perffolder = sprintf('Performance_%g', id);
+cd(perffolder)
+W_f = Performance(x,lb_0,ub_0,Const);
+cd ../
 
 % Run Structures block
-cd Structures
-W_w = Structures(x);
+structfolder = sprintf('Structures_%g', id);
+cd(structfolder)
+W_w = Structures(x,lb_0,ub_0,Const);
 cd ../
 
 % Run Loads block
-cd Loads
-loadcoefficients = Loads(x);
+loadsfolder = sprintf('Loads_%g', id);
+cd(loadsfolder)
+loadcoefficients = Loads(x,lb_0,ub_0,Const);
 cd ../
 
 % Run Aerodynamics block
-cd Aerodynamics
-LD = Aerodynamics(x);
+aerofolder = sprintf('Aero_%g', id);
+cd(aerofolder)
+LD = Aerodynamics(x,lb_0,ub_0,Const);
 cd ../
 
 %Consistency Constraints
@@ -155,7 +171,7 @@ S_2 = integral(@CSTk, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 S_3 = integral(@CSTo, Const.Structure.loc_fspar, Const.Structure.loc_rspar);
 
 % Scale to actual size
-wing = wingplanform(x2);
+wing = wingplanform(x2, Const);
 C_begin=wing(4)-((wing(4)-wing(5))*0.1*(x2(2)/2))/Const.Wing.y_k;
 C_kink=wing(5);
 C_end=wing(5)-((wing(5)-wing(6))*(0.7*b/2-Const.Wing.y_k)/wing(3));
@@ -171,6 +187,7 @@ V_tank = (Const.Wing.y_k-0.1*b/2)/3*(S_1+S_2+sqrt(S_1*S_2))+(0.7*b/2-Const.Wing.
 c1 = Const.AC.WS_max-MTOW/S;
 c2 = V_tank*Const.Fuel.f - W_f2/Const.Fuel.rho;
 
+% iterationcounter=iterationcounter+1
 
 %Combination
 c = [c1,c2]

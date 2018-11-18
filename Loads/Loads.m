@@ -1,16 +1,20 @@
 
 
-function [out]=Loads(x_n)
+function [out]=Loads(x_n,lb_0,ub_0,Const)
 
-global Const;
-global ub_0;
-global lb_0;
+% global ub_0;
+% global lb_0;
+% global Const;
+
+% ub_0 = u.value;
+% lb_0 = l.value;
+% Const = C.value;
 
 %% Aerodynamic solver setting
 x = (ub_0-lb_0).*x_n+lb_0;
 
 
-wing=wingplanform(x);
+wing=wingplanform(x, Const);
 b_i=Const.Wing.y_k;
 b=x(2)/2;
 Lambda_i=x(3);

@@ -4,17 +4,21 @@
 %%
 
 
-function [out]=Aerodynamics(x_n)
+function [out]=Aerodynamics(x_n,lb_0,ub_0,Const)
 
-global Const;
-global ub_0;
-global lb_0;
+% global ub_0;
+% global lb_0;
+% global Const;
+
+% ub_0 = u.value;
+% lb_0 = l.value;
+% Const = C.value;
 
 %% Aerodynamic solver setting
 x = (ub_0-lb_0).*x_n+lb_0;
 
 
-wing=wingplanform(x);
+wing=wingplanform(x, Const);
 b_i=Const.Wing.y_k; % Kink y-location
 b=x(2)/2; % Semi-span
 Lambda_i=x(3); % Inner LE sweep
@@ -55,7 +59,7 @@ AC.Aero.rho   = Const.Cruise.rho;         % air density  (kg/m3)
 AC.Aero.alt   = Const.Cruise.h;             % flight altitude (m)
 AC.Aero.Re    = (Const.Cruise.rho*Const.Cruise.V*MAC)/Const.Cruise.mu;        % reynolds number (based on mean aerodynamic chord)
 AC.Aero.M     = Const.Cruise.M;           % flight Mach number 
-AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));          % lift coefficient - comment this line to run the code for given alpha%
+AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1))          % lift coefficient - comment this line to run the code for given alpha%
 %AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 
 
 
@@ -63,6 +67,7 @@ AC.Aero.CL    = W_d/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));          % lif
 Res = Q3D_solver(AC);
 
 CD_AW=Const.AWGroup.drag/(0.5*Const.Cruise.rho*Const.Cruise.V^2*x(1));
+CLCD = Res.CLwing/(Res.CDwing+CD_AW)
 
 
 

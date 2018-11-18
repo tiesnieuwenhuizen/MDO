@@ -9,7 +9,7 @@ global Const;
 
 x=x_n;
 
-wing=wingplanform(x);
+wing=wingplanform(x, Const);
 b_i=Const.Wing.y_k;
 b=x(2)/2;
 Lambda_i=x(3);
